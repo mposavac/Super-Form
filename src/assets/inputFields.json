@@ -85,7 +85,9 @@
     "name": "kidsQuestion1",
     "placeholder": "Do you have kids ?",
     "type": "Radio",
-    "options": ["Yes", "No"]
+    "options": ["Yes", "No"],
+    "required": true,
+    "redirectTo": { "if": "No", "index": 30 }
   },
   {
     "name": "kidsNumber",

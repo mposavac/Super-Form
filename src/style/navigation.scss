@@ -1,0 +1,65 @@
+nav {
+  position: absolute;
+  top: 0;
+  right: 0;
+  border: 1px black solid;
+
+  .color-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    .color {
+      transition: 0.3s ease-in-out;
+      height: 15px;
+      width: 15px;
+      cursor: pointer;
+    }
+    @for $i from 1 to 6 {
+      .color:nth-child(#{$i}) {
+        background: color(color#{$i}Primary);
+        border: color(color#{$i}Secondary) 1px solid;
+        &:hover {
+          background: color(color#{$i}Secondary);
+          border: color(color#{$i}Primary) 1px solid;
+        }
+      }
+    }
+  }
+
+  .font-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    p:nth-child(2) {
+      font-size: 1.5em;
+    }
+    p:nth-child(3) {
+      font-size: 1.8em;
+    }
+  }
+}
+
+.progress-container {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  width: 200px;
+  height: 30px;
+  display: flex;
+  align-items: center;
+  .progress-bar-outer {
+    width: calc(100% - 2px);
+    height: 12px;
+    margin-right: 1em;
+    border: 1px black solid;
+    overflow: hidden;
+    border-radius: 5px;
+    .progress-bar-inner {
+      height: 10px;
+      transition: 0.35s;
+    }
+  }
+  p {
+    margin-right: 0.5em;
+  }
+}

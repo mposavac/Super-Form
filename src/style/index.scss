@@ -1,60 +1,142 @@
 @import "./definitions.scss";
 
 .form-container {
+  position: relative;
   height: 100vh;
   width: 100%;
   overflow: hidden;
+  transition: 0.3s;
   font-family: "Montserrat", sans-serif;
-}
 
-form {
-  width: 50%;
-  height: 25vw;
-  background: color(color1Secondary);
-  color: color(color1Primary);
-  text-align: center;
-  position: relative;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  div.form-info {
-    position: absolute;
-    p.index-number {
-    }
-    i.fa-arrow-left {
-    }
-  }
-  div.input-container {
+  form {
+    width: 50%;
+    height: 25vw;
+    text-align: center;
     position: relative;
     top: 50%;
-    transform: translateY(-50%);
-
-    input[type="text"],
-    input[type="number"] {
-      background: transparent;
-      outline: none;
-      border: none;
-      border-bottom: color(color1Primary) 1px solid;
-      height: 5vw;
-      width: 75%;
-      color: color(color1Primary);
-      font-size: 1.5em;
-      padding: 0 0 0 0.5em;
-      &::placeholder {
-        color: color(color1Primary);
+    left: 50%;
+    transform: translate(-50%, -50%);
+    border-radius: 0.25em;
+    overflow: hidden;
+    transition: 0.3s;
+    div.form-info {
+      position: absolute;
+      p.index-number {
       }
-      &::-webkit-inner-spin-button {
-        -webkit-appearance: none;
+      i.fa-arrow-left {
+        cursor: pointer;
+        transition: 0.3s;
       }
     }
+    div.input-container {
+      animation: fadeIn 0.35s forwards ease;
+      &.next-animate {
+        animation: fadeOut 0.35s forwards ease;
+      }
+      &.prev-animate {
+        animation: fadeOutPrev 0.35s forwards ease;
+      }
+      position: relative;
+      top: 50%;
+      transform: translateY(-50%);
 
-    .radio-input-container {
-      width: 15%;
-      margin: auto;
-      color: color(color1Primary);
-      text-align: left;
-      input[type="radio"] {
+      input[type="text"],
+      input[type="number"] {
+        background: transparent;
+        outline: none;
+        border: none;
+        height: 5vw;
+        width: 75%;
+        font-size: 1.5em;
+        padding: 0 0 0 0.5em;
+        &::-webkit-inner-spin-button {
+          -webkit-appearance: none;
+        }
+      }
+
+      .radio-input-container {
+        width: 15%;
+        margin: auto;
+        text-align: left;
+        input[type="radio"] {
+        }
+      }
+
+      .selection-input-contatiner {
+        display: flex;
+        flex-direction: column;
+        width: 60%;
+        margin: auto;
+        .option {
+          cursor: pointer;
+          transition: 0.5s;
+          padding: 0.25em 0;
+          margin: 0.25em 0;
+        }
+      }
+      button {
+        margin-top: 1.5em;
+        padding: 0.5em 1.5em;
+        cursor: pointer;
+        transition: 0.3s;
+        animation: fadeInBtn 0.3s forwards ease-in-out;
+        &.hidden {
+          animation: fadeOutBtn 0.15s forwards ease-in-out;
+        }
       }
     }
   }
+
+  @for $i from 1 to 6 {
+    &.color#{$i} {
+      background: color(color#{$i}Secondary);
+      form {
+        color: color(color#{$i}Primary);
+
+        div.input-container {
+          button {
+            outline: none;
+            color: color(color#{$i}Primary);
+            background: transparent;
+            border: 1px color(color#{$i}Primary) solid;
+            &:hover {
+              background: color(color#{$i}Primary);
+              border: 1px color(color#{$i}Secondary) solid;
+              color: color(color#{$i}Secondary);
+            }
+          }
+          input[type="text"],
+          input[type="number"] {
+            border-bottom: 1px color(color#{$i}Primary) solid !important;
+            color: color(color#{$i}Primary);
+            &::placeholder {
+              color: color(color#{$i}Primary);
+            }
+          }
+          .radio-input-container {
+            color: color(color#{$i}Primary);
+          }
+          .selection-input-contatiner .option {
+            border: 2px rgba(color(color#{$i}Primary), 0.2) solid;
+            &.selected {
+              border: 2px color(color#{$i}Primary) solid;
+            }
+          }
+        }
+      }
+
+      .progress-container .progress-bar-outer .progress-bar-inner {
+        background: color(color#{$i}Primary);
+      }
+    }
+  }
+
+  @for $i from 2 to 4 {
+    &.font#{$i} {
+      font-size: #{$i * 0.75}em; /*TODO*/
+    }
+  }
 }
+
+@import "./navigation.scss";
+@import "./animations.scss";
