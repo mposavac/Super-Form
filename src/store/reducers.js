@@ -1,11 +1,10 @@
 const initState = {
-  data: "HEj"
 };
 
 const formReducer = (state = initState, action) => {
   switch (action.type) {
     case "RESPONSE":
-      return { ...state };
+      return { ...state,  [action.data.key]:action.data.value};
     default:
       return state;
   }

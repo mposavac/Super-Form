@@ -1,0 +1,60 @@
+@import "./definitions.scss";
+
+.form-container {
+  height: 100vh;
+  width: 100%;
+  overflow: hidden;
+  font-family: "Montserrat", sans-serif;
+}
+
+form {
+  width: 50%;
+  height: 25vw;
+  background: color(color1Secondary);
+  color: color(color1Primary);
+  text-align: center;
+  position: relative;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  div.form-info {
+    position: absolute;
+    p.index-number {
+    }
+    i.fa-arrow-left {
+    }
+  }
+  div.input-container {
+    position: relative;
+    top: 50%;
+    transform: translateY(-50%);
+
+    input[type="text"],
+    input[type="number"] {
+      background: transparent;
+      outline: none;
+      border: none;
+      border-bottom: color(color1Primary) 1px solid;
+      height: 5vw;
+      width: 75%;
+      color: color(color1Primary);
+      font-size: 1.5em;
+      padding: 0 0 0 0.5em;
+      &::placeholder {
+        color: color(color1Primary);
+      }
+      &::-webkit-inner-spin-button {
+        -webkit-appearance: none;
+      }
+    }
+
+    .radio-input-container {
+      width: 15%;
+      margin: auto;
+      color: color(color1Primary);
+      text-align: left;
+      input[type="radio"] {
+      }
+    }
+  }
+}

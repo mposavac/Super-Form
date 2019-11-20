@@ -1,0 +1,32 @@
+@import url("https://fonts.googleapis.com/css?family=Montserrat&display=swap");
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+$colors: (
+  color1Primary: #f25050,
+  color1Secondary: #1e2d59,
+  color2Primary: #f2e205,
+  color2Secondary: #262626,
+  color3Primary: #f25050,
+  color3Secondary: #1e2d59,
+  color4Primary: #f25050,
+  color4Secondary: #1e2d59,
+  color5Primary: #f25050,
+  color5Secondary: #1e2d59
+);
+
+$mobile: 650px;
+
+@function color($color-name) {
+  @return map-get($colors, $color-name);
+}
+
+@mixin mobile {
+  @media (max-width: $mobile) {
+    @content;
+  }
+}

@@ -1,0 +1,174 @@
+[
+  {
+    "name": "name",
+    "placeholder": "Name",
+    "type": "Text"
+  },
+  {
+    "name": "lastName",
+    "placeholder": "Last Name",
+    "type": "Text"
+  },
+  {
+    "name": "address",
+    "placeholder": "Address",
+    "type": "Text"
+  },
+  {
+    "name": "city",
+    "placeholder": "City",
+    "type": "Text"
+  },
+  {
+    "name": "zipCode",
+    "placeholder": "Zip Code",
+    "type": "Number"
+  },
+  {
+    "name": "state",
+    "placeholder": "State",
+    "type": "Text"
+  },
+  {
+    "name": "country",
+    "placeholder": "Country",
+    "type": "Text"
+  },
+  {
+    "name": "gender",
+    "placeholder": "Gender",
+    "type": "Radio",
+    "options": ["Male", "Female", "Others"]
+  },
+  {
+    "name": "birthDate",
+    "placeholder": "Date of Birth",
+    "type": "Date"
+  },
+  {
+    "name": "fatherName",
+    "placeholder": "Father's Name",
+    "type": "Text"
+  },
+  {
+    "name": "bornCity",
+    "placeholder": "City of Born",
+    "type": "Text"
+  },
+  {
+    "name": "bornCountryAndState",
+    "placeholder": "State and Country of Born",
+    "type": "Text"
+  },
+  {
+    "name": "profileImg",
+    "placeholder": "Profile Picture",
+    "type": "File",
+    "multiple": false
+  },
+  {
+    "name": "productQuestion1",
+    "placeholder": "How did you heard about the product ?",
+    "type": "Text"
+  },
+  {
+    "name": "productQuestion2",
+    "placeholder": "When did you heard about the product ?",
+    "type": "Text"
+  },
+  {
+    "name": "productQuestion3",
+    "placeholder": "How often are they using the product ?",
+    "type": "Text"
+  },
+  {
+    "name": "kidsQuestion1",
+    "placeholder": "Do you have kids ?",
+    "type": "Radio",
+    "options": ["Yes", "No"]
+  },
+  {
+    "name": "kidsNumber",
+    "placeholder": "How many ?",
+    "type": "Number"
+  },
+  {
+    "name": "kidsAgeAndGender",
+    "placeholder": "Which age and gender ?",
+    "type": "Text"
+  },
+  {
+    "name": "teethBrushQuestion1",
+    "placeholder": "How often they brush their teeth ?",
+    "type": "Number"
+  },
+  {
+    "name": "teethBrushQuestion2",
+    "placeholder": "How long do they brush their teeth ?",
+    "type": "Selection",
+    "options": ["30 sec", "1 min", "1:30 min", "2 min", "2:30 min", "3 min"]
+  },
+  {
+    "name": "teethBrushQuestion3",
+    "placeholder": "Do they love brushing ?",
+    "type": "Custom"
+  },
+  {
+    "name": "teethBrushQuestion4",
+    "placeholder": "Is it hard to get them to brush ?",
+    "type": "Custom"
+  },
+  {
+    "name": "teethBrushQuestion5",
+    "placeholder": "How often they brush their teeth ?",
+    "type": "Number"
+  },
+  {
+    "name": "gamesQuestion1",
+    "placeholder": "Do they play video games on tablet or mobile phone ?",
+    "type": "Radio",
+    "options": ["Tablet", "Mobile Phone"]
+  },
+
+  {
+    "name": "gamesQuestion2",
+    "placeholder": "Is it their or parents phone ?",
+    "type": "Radio",
+    "options": ["Their's", "It's parent's Phone"]
+  },
+  {
+    "name": "gamesQuestion3",
+    "placeholder": "How often they play games ?",
+    "type": "Text"
+  },
+  {
+    "name": "gamesQuestion4",
+    "placeholder": "How many games they buy through the year ?",
+    "type": "Range",
+    "range": ["0", "100", "1"]
+  },
+  {
+    "name": "gamesQuestion5",
+    "placeholder": "How much they spent on in-game purchases ?",
+    "type": "Range",
+    "range": ["0", "5000", "100"]
+  },
+  {
+    "name": "phoneQuestion1",
+    "placeholder": "How often they buy new phone ?",
+    "type": "Selection",
+    "options": [
+      "Every 6 months",
+      "Once a year",
+      "Every 2 years",
+      "Every 3 years",
+      "Other"
+    ]
+  },
+  {
+    "name": "photos",
+    "placeholder": "Pictures of kids or parents brushing teeth.",
+    "type": "File",
+    "multiple": true
+  }
+]

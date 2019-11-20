@@ -4,7 +4,7 @@ import { Provider } from "react-redux";
 import { createStore } from "redux";
 
 import formReducer from "./store/reducers";
-import App from "./App";
+import App from "./App.jsx";
 
 const store = createStore(formReducer);
 
