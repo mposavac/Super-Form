@@ -17,15 +17,29 @@
     left: 50%;
     transform: translate(-50%, -50%);
     border-radius: 0.25em;
-    //overflow: hidden;
     transition: 0.3s;
     div.form-info {
       position: absolute;
       p.index-number {
+        font-size: 0.75em;
       }
       i.fa-arrow-left {
+        position: relative;
         cursor: pointer;
+        padding: 0.5em;
+        font-size: 1.2em;
         transition: 0.3s;
+        &:hover {
+          animation: fadeOutLeft 1s infinite ease-out;
+        }
+        &::after {
+          position: absolute;
+          content: "";
+          top: -50%;
+          left: 0;
+          width: 200%;
+          height: 150%;
+        }
       }
     }
     div.input-container {
@@ -146,6 +160,45 @@
           }
           &::-webkit-inner-spin-button {
             display: none;
+          }
+        }
+      }
+
+      .file-input-container {
+        position: relative;
+        label {
+          cursor: pointer;
+          position: absolute;
+          top: 50%;
+          transform: translateY(-50%);
+          border-radius: 5px;
+          padding: 0.5em;
+          overflow: hidden;
+          i {
+            margin-right: 0.3em;
+          }
+          &::after {
+            position: absolute;
+            content: "";
+            width: 100%;
+            height: 100%;
+            top: 100%;
+            left: 0;
+            transition: 0.3s;
+            z-index: -1;
+          }
+          &:hover::after {
+            top: 0;
+          }
+        }
+        input[type="file"] {
+          outline: none;
+          &::-webkit-file-upload-button {
+            visibility: hidden;
+            padding: 1.5em;
+          }
+          &::-webkit-file-upload-text {
+            margin-left: 50em;
           }
         }
       }
@@ -277,18 +330,30 @@
           margin-top: 1.5em;
         }
       }
+    }
+  }
 
-      button {
-        margin-top: 5em;
-        padding: 0.5em 1.5em;
-        border-radius: 5px;
-        cursor: pointer;
-        transition: 0.3s;
-        animation: fadeInBottom 0.3s forwards ease-in-out;
-        &.hidden {
-          animation: fadeOutBottom 0.15s forwards ease-in-out;
-        }
-      }
+  .form-summary {
+    width: 50%;
+    text-align: center;
+    position: relative;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    h2 {
+      animation: fadeInBottom 0.75s ease-in forwards;
+    }
+  }
+  button {
+    outline: none;
+    margin-top: 5em;
+    padding: 0.5em 1.5em;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: 0.3s;
+    animation: fadeInBottom 0.3s forwards ease-in-out;
+    &.hidden {
+      animation: fadeOutBottom 0.15s forwards ease-in-out;
     }
   }
 }

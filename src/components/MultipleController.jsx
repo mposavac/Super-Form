@@ -12,7 +12,6 @@ export class MultipleController extends Component {
   };
 
   componentDidMount() {
-    console.log(this.props.formData[this.props.itemDetails.name]);
     if (this.props.formData[this.props.itemDetails.name]) {
       this.setState(this.props.formData[this.props.itemDetails.name]);
     } else {

@@ -10,7 +10,6 @@ export class MultipleInputField extends Component {
     input2: ""
   };
   componentDidMount() {
-    console.log(this.props.input);
     if (this.props.input) {
       this.setState(this.props.input);
     }

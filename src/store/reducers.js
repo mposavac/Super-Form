@@ -16,6 +16,10 @@ const formReducer = (state = { index: 0 }, action) => {
         return localState;
       }
       return state;
+    case "SUBMIT_FORM":
+      //SUBMIT
+      localStorage.clear();
+      return { index: 0 };
     default:
       return state;
   }

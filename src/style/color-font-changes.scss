@@ -5,17 +5,6 @@
       color: color(color#{$i}Primary);
 
       div.input-container {
-        button {
-          outline: none;
-          color: color(color#{$i}Primary);
-          background: transparent;
-          border: 1px color(color#{$i}Primary) solid;
-          &:hover {
-            background: color(color#{$i}Primary);
-            border: 1px color(color#{$i}Secondary) solid;
-            color: color(color#{$i}Secondary);
-          }
-        }
         input[type="text"],
         input[type="number"] {
           border-bottom: 1px color(color#{$i}Primary) solid !important;
@@ -47,7 +36,6 @@
         }
         .date-input-container {
           input[type="date"] {
-            //border-bottom: 1px rgba(color(color#{$i}Primary), 0.5) solid;
             &::-webkit-datetime-edit-text,
             &::-webkit-datetime-edit-month-field,
             &::-webkit-datetime-edit-day-field,
@@ -96,7 +84,17 @@
             }
           }
         }
-
+        .file-input-container {
+          label {
+            border: 1px color(color#{$i}Primary) solid;
+            &::after {
+              background: color(color#{$i}Primary);
+            }
+            &:hover {
+              color: color(color#{$i}Secondary);
+            }
+          }
+        }
         .custom-input-container {
           &:hover i {
             color: color(color#{$i}Contrast);
@@ -116,6 +114,20 @@
             }
           }
         }
+      }
+    }
+    .form-summary h2 {
+      color: color(color#{$i}Primary);
+    }
+    button {
+      outline: none;
+      color: color(color#{$i}Primary);
+      background: transparent;
+      border: 1px color(color#{$i}Primary) solid;
+      &:hover {
+        background: color(color#{$i}Primary);
+        border: 1px color(color#{$i}Secondary) solid;
+        color: color(color#{$i}Secondary);
       }
     }
 

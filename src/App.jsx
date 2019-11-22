@@ -33,6 +33,8 @@ export class App extends Component {
   state = {
     input: "",
     animate: false,
+    finished: false,
+    submited: false,
     color: "color1",
     font: "font1"
   };
@@ -57,12 +59,10 @@ export class App extends Component {
   handleNext = event => {
     if (event) event.preventDefault();
     let { index } = this.props;
-
     if (index + 1 < inputs.length) {
       this.setState({ animate: " next" });
       setTimeout(() => {
-        if (inputs[index].type !== "Multiple")
-          this.props.addData(inputs[index].name, this.state.input);
+        this.props.addData(inputs[index].name, this.state.input);
         if (
           inputs[index].redirectTo &&
           this.state.input === inputs[index].redirectTo["if"]
@@ -71,13 +71,24 @@ export class App extends Component {
             input: "",
             animate: false
           });
-          this.props.changeIndex(inputs[index].redirectTo["index"]);
+        } else if (this.props.formData[inputs[index + 1].name]) {
+          this.setState({
+            input: this.props.formData[inputs[index + 1].name],
+            animate: false
+          });
+          this.props.changeIndex(index + 1);
         } else {
           this.setState({ input: "", animate: false });
           this.props.changeIndex(index + 1);
         }
       }, 400);
-    } else console.log("ZAVRSEN UNOS");
+    } else {
+      this.setState({ animate: " next" });
+      setTimeout(() => {
+        this.props.addData(inputs[index].name, this.state.input);
+        this.setState({ animate: false, finished: true });
+      }, 400);
+    }
   };
 
   handlePrev = () => {
@@ -112,6 +123,16 @@ export class App extends Component {
       [e.target.getAttribute("class")]: e.target.getAttribute("name")
     });
   };
+
+  handleSubmit = () => {
+    this.props.submitForm();
+    this.setState({ input: "", submited: true });
+  };
+
+  handleRetake = () => {
+    this.setState({ finished: false, submited: false });
+  };
+
   render() {
     const { index } = this.props;
     const TagName = this.components[inputs[index].type];
@@ -119,39 +140,59 @@ export class App extends Component {
     return (
       <div className={`form-container ${this.state.color} ${this.state.font}`}>
         <NavBar handleStyleChange={this.handleStyleChange} />
-        <form onSubmit={this.handleNext}>
-          <div className="form-info">
-            <i
-              className="fas fa-arrow-left"
-              onClick={this.handlePrev}
-              style={!index ? { opacity: 0 } : { opacity: 1 }}
-            />
-            <p className="index-number">{index + 1}</p>
-          </div>
-          <div
-            className={`input-container${
-              this.state.animate ? this.state.animate + "-animate" : ""
-            }`}
-          >
-            <TagName
-              handleInput={this.handleInput}
-              itemDetails={inputs[index]}
-              input={this.state.input}
-              handleNext={this.handleNext}
-            />
-            <button
-              className={this.state.input === "" ? "hidden" : ""}
-              disabled={this.state.input === ""}
-              type="submit"
-              style={
-                inputs[index].type === "Multiple" ? { display: "none" } : {}
-              }
+
+        {!this.state.finished && index < inputs.length ? (
+          <form onSubmit={this.handleNext}>
+            <div className="form-info">
+              <p className="index-number">Q{index + 1}</p>
+              <i
+                className="fas fa-arrow-left"
+                onClick={this.handlePrev}
+                style={!index ? { opacity: 0 } : { opacity: 1 }}
+              />
+            </div>
+            <div
+              className={`input-container${
+                this.state.animate ? this.state.animate + "-animate" : ""
+              }`}
             >
-              OK <i className="fas fa-chevron-right" />
+              <TagName
+                handleInput={this.handleInput}
+                itemDetails={inputs[index]}
+                input={this.state.input}
+                handleNext={this.handleNext}
+              />
+              <button
+                className={this.state.input === "" ? "hidden" : ""}
+                disabled={this.state.input === ""}
+                type="submit"
+                style={
+                  inputs[index].type === "Multiple" ? { display: "none" } : {}
+                }
+              >
+                OK <i className="fas fa-chevron-right" />
+              </button>
+            </div>
+          </form>
+        ) : !this.state.submited ? (
+          <div className="form-summary">
+            <h2>You Completed Super Form click finish to submit it!</h2>
+            <button onClick={this.handleSubmit}>
+              Finish
+              <i className="fas fa-chevron-right" />
             </button>
           </div>
-        </form>
-        <ProgressBar progress={(index / inputs.length) * 100} />
+        ) : (
+          <div className="form-summary">
+            <h2>Your Form is submited! Thank you!</h2>
+            <button onClick={this.handleRetake}>
+              Take this awesome form again
+            </button>
+          </div>
+        )}
+        <ProgressBar
+          progress={!this.state.finished ? (index / inputs.length) * 100 : 100}
+        />
       </div>
     );
   }
@@ -170,7 +211,8 @@ const mapStateToDispatch = dispatch => {
     addData: (key, value) =>
       dispatch({ type: "ADD_FORM_DATA", data: { key: key, value: value } }),
     checkLocal: () => dispatch({ type: "CHECK_LOCAL" }),
-    changeIndex: newIndex => dispatch({ type: "CHANGE_INDEX", data: newIndex })
+    changeIndex: newIndex => dispatch({ type: "CHANGE_INDEX", data: newIndex }),
+    submitForm: () => dispatch({ type: "SUBMIT_FORM" })
   };
 };
 export default connect(mapStateToProps, mapStateToDispatch)(App);
