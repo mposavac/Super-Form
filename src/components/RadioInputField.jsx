@@ -1,22 +1,22 @@
 import React from "react";
 
 export default function RadioInputField(props) {
-  if (props.input === "") props.handleInput(props.itemDetails.options[0]);
   return (
     <React.Fragment>
-      <p>{props.itemDetails.placeholder}</p>
+      <h2>{props.itemDetails.placeholder}</h2>
       <div className="radio-input-container">
         {props.itemDetails.options.map((element, i) => (
-          <div key={i}>
+          <label key={i}>
             <input
               type="radio"
-              name={props.itemDetails.name}
+              name={props.itemDetails.name + props.groupId ? props.groupId : ""}
               value={element}
               onChange={props.handleInput}
               checked={props.input === element}
+              id={props.multipleIndicator && props.multipleIndicator}
             />
             {element} <br />
-          </div>
+          </label>
         ))}
       </div>
     </React.Fragment>

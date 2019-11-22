@@ -29,7 +29,7 @@
   }
 }
 
-@keyframes fadeInBtn {
+@keyframes fadeInBottom {
   from {
     transform: translateY(100%);
     opacity: 0;
@@ -40,7 +40,7 @@
   }
 }
 
-@keyframes fadeOutBtn {
+@keyframes fadeOutBottom {
   from {
     transform: translateY(0%);
     opacity: 1;
@@ -48,5 +48,27 @@
   to {
     transform: translateY(100%);
     opacity: 0;
+  }
+}
+
+@keyframes radioWave {
+  from {
+    height: 2em;
+    width: 2em;
+    opacity: 0.5;
+  }
+  to {
+    height: 5em;
+    width: 5em;
+    opacity: 0;
+  }
+}
+
+@keyframes hideSettings {
+  from {
+    top: 7vh;
+  }
+  to {
+    top: 0;
   }
 }

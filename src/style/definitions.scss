@@ -9,14 +9,19 @@
 $colors: (
   color1Primary: #f25050,
   color1Secondary: #1e2d59,
+  color1Contrast: #e0e0e0,
   color2Primary: #f2e205,
   color2Secondary: #262626,
+  color2Contrast: #e0e0e0,
   color3Primary: #44bd32,
   color3Secondary: #c23616,
+  color3Contrast: #1e2d59,
   color4Primary: #b33771,
   color4Secondary: #f8efba,
+  color4Contrast: #1e2d59,
   color5Primary: #dfc2f2,
-  color5Secondary: #181e28
+  color5Secondary: #181e28,
+  color5Contrast: #1e2d59
 );
 
 $mobile: 650px;

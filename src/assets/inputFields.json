@@ -86,7 +86,6 @@
     "placeholder": "Do you have kids ?",
     "type": "Radio",
     "options": ["Yes", "No"],
-    "required": true,
     "redirectTo": { "if": "No", "index": 30 }
   },
   {
@@ -97,12 +96,21 @@
   {
     "name": "kidsAgeAndGender",
     "placeholder": "Which age and gender ?",
-    "type": "Text"
+    "type": "Multiple",
+    "additional_fields": [
+      { "name": "kidAge", "placeholder": "Age", "type": "Number" },
+      {
+        "name": "kidGender",
+        "placeholder": "Gender",
+        "type": "Radio",
+        "options": ["Male", "Female", "Others"]
+      }
+    ]
   },
   {
     "name": "teethBrushQuestion1",
     "placeholder": "How often they brush their teeth ?",
-    "type": "Number"
+    "type": "Text"
   },
   {
     "name": "teethBrushQuestion2",
@@ -113,17 +121,19 @@
   {
     "name": "teethBrushQuestion3",
     "placeholder": "Do they love brushing ?",
-    "type": "Custom"
+    "type": "Custom",
+    "icon": "heart"
   },
   {
     "name": "teethBrushQuestion4",
     "placeholder": "Is it hard to get them to brush ?",
-    "type": "Custom"
+    "type": "Custom",
+    "icon": "grimace"
   },
   {
     "name": "teethBrushQuestion5",
     "placeholder": "How often they brush their teeth ?",
-    "type": "Number"
+    "type": "Text"
   },
   {
     "name": "gamesQuestion1",
@@ -147,13 +157,15 @@
     "name": "gamesQuestion4",
     "placeholder": "How many games they buy through the year ?",
     "type": "Range",
-    "range": ["0", "100", "1"]
+    "range": ["0", "100", "1"],
+    "unit": "per Year"
   },
   {
     "name": "gamesQuestion5",
     "placeholder": "How much they spent on in-game purchases ?",
     "type": "Range",
-    "range": ["0", "5000", "100"]
+    "range": ["0", "5000", "100"],
+    "unit": "$"
   },
   {
     "name": "phoneQuestion1",
@@ -171,6 +183,7 @@
     "name": "photos",
     "placeholder": "Pictures of kids or parents brushing teeth.",
     "type": "File",
-    "multiple": true
+    "multiple": true,
+    "redirectFrom": { "if": "No", "index": 16 }
   }
 ]

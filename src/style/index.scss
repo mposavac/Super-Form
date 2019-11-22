@@ -10,14 +10,14 @@
 
   form {
     width: 50%;
-    height: 25vw;
+    height: 60vh;
     text-align: center;
     position: relative;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
     border-radius: 0.25em;
-    overflow: hidden;
+    //overflow: hidden;
     transition: 0.3s;
     div.form-info {
       position: absolute;
@@ -29,6 +29,9 @@
       }
     }
     div.input-container {
+      position: relative;
+      top: 50%;
+      transform: translateY(-50%);
       animation: fadeIn 0.35s forwards ease;
       &.next-animate {
         animation: fadeOut 0.35s forwards ease;
@@ -36,29 +39,114 @@
       &.prev-animate {
         animation: fadeOutPrev 0.35s forwards ease;
       }
-      position: relative;
-      top: 50%;
-      transform: translateY(-50%);
 
-      input[type="text"],
-      input[type="number"] {
-        background: transparent;
-        outline: none;
-        border: none;
+      h2 {
+        margin-bottom: 2.5em;
+      }
+
+      .input-field {
         height: 5vw;
         width: 75%;
-        font-size: 1.5em;
-        padding: 0 0 0 0.5em;
-        &::-webkit-inner-spin-button {
-          -webkit-appearance: none;
+        position: relative;
+        margin: auto;
+        input[type="text"],
+        input[type="number"] {
+          background: transparent;
+          -webkit-tap-highlight-color: transparent;
+          outline: none;
+          border: none;
+          height: 100%;
+          width: 100%;
+          font-size: 1.5em;
+          padding: 0 0 0 0.5em;
+          &::-webkit-inner-spin-button {
+            -webkit-appearance: none;
+          }
+        }
+        input[type="text"]:focus ~ .border-line,
+        input[type="number"]:focus ~ .border-line {
+          width: 100%;
+          left: 0%;
+        }
+        .border-line {
+          position: absolute;
+          transition: 0.3s;
+          bottom: 0;
+          left: 50%;
+          width: 0%;
+          height: 2px;
         }
       }
 
       .radio-input-container {
-        width: 15%;
-        margin: auto;
         text-align: left;
-        input[type="radio"] {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        label {
+          -webkit-tap-highlight-color: transparent;
+          height: 3em;
+          min-width: 8em;
+          cursor: pointer;
+          input[type="radio"] {
+            -webkit-appearance: none;
+
+            outline: none;
+            position: relative;
+            top: 0.5em;
+            left: 0;
+            height: 2em;
+            width: 2em;
+            transition: all 0.15s ease-out;
+            border: none;
+            border-radius: 50%;
+            cursor: pointer;
+            margin-right: 0.75em;
+            &:checked:before {
+              height: 1.25em;
+              width: 1.25em;
+              display: inline-block;
+              text-align: center;
+              line-height: 2em;
+              transition: 0.15s;
+            }
+            &:checked:after,
+            &:checked:before {
+              position: absolute;
+              content: "";
+              top: 50%;
+              left: 50%;
+              transform: translate(-50%, -50%);
+              border-radius: 50%;
+            }
+            &:checked:after {
+              z-index: 100;
+              animation: radioWave 0.5s;
+            }
+          }
+        }
+      }
+
+      .date-input-container {
+        input[type="date"] {
+          -webkit-tap-highlight-color: transparent;
+          background: transparent;
+          padding: 0.5em;
+          border: none;
+          font-size: 1.25em;
+          outline: none;
+          position: relative;
+
+          &::-webkit-datetime-edit {
+            margin-right: -1em;
+            padding: 0.5em 0.5em 0.5em 0.75em;
+          }
+          &::-webkit-datetime-edit-text {
+            padding: 0 0.15em;
+          }
+          &::-webkit-inner-spin-button {
+            display: none;
+          }
         }
       }
 
@@ -68,75 +156,143 @@
         width: 60%;
         margin: auto;
         .option {
+          -webkit-tap-highlight-color: transparent;
+          position: relative;
           cursor: pointer;
           transition: 0.5s;
-          padding: 0.25em 0;
-          margin: 0.25em 0;
+          padding: 0.5em 0;
+          margin: 0.25em auto;
+          overflow: hidden;
+          border-radius: 8px;
+          width: 75%;
+          &:after {
+            position: absolute;
+            content: "";
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: -100%;
+            z-index: -1;
+            background: transparent;
+            transition: 0.3s all;
+          }
+          &.selected::after {
+            left: 0;
+          }
         }
       }
+
+      .range-input-container {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+
+        .range-slider {
+          position: relative;
+          width: 75%;
+          .indicator {
+            position: relative;
+            margin-top: 1.5em;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            transform: translateX(calc(-50% + 11px));
+            width: 5em;
+            height: 5em;
+            border-radius: 50%;
+            span {
+              font-size: 0.75em;
+            }
+          }
+          input {
+            -webkit-appearance: none;
+            margin-top: 29px;
+            width: 100%;
+            &:focus {
+              outline: none;
+            }
+            &::-webkit-slider-runnable-track {
+              -webkit-appearance: none;
+              width: 100%;
+              height: 1px;
+              cursor: pointer;
+              box-shadow: none;
+              border-radius: 0px;
+            }
+            &::-webkit-slider-thumb {
+              -webkit-appearance: none;
+              box-shadow: none;
+              box-shadow: 0px 10px 10px rgba(0, 0, 0, 0.25);
+              height: 42px;
+              width: 22px;
+              border-radius: 22px;
+              cursor: pointer;
+              margin-top: -20px;
+            }
+          }
+        }
+
+        .range {
+          width: 76%;
+          opacity: 0;
+          display: flex;
+          justify-content: space-between;
+          animation: fadeInBottom 0.5s forwards ease-in-out 0.35s;
+          span:first-child {
+            margin-left: 8px;
+          }
+          span:nth-child(2) {
+            margin-right: 6px;
+          }
+        }
+      }
+
+      .custom-input-container {
+        i {
+          font-size: 2em;
+          margin: 0 0.25em;
+          transition: 0.4s;
+          cursor: pointer;
+        }
+        &.active {
+          i {
+            font-weight: 900;
+          }
+          i.selected ~ i {
+            font-weight: 400;
+          }
+        }
+      }
+
+      .multiple-input-container {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        .input-field ~ h2 {
+          display: none;
+        }
+        .radio-input-container {
+          margin-top: 1.5em;
+        }
+      }
+
       button {
-        margin-top: 1.5em;
+        margin-top: 5em;
         padding: 0.5em 1.5em;
+        border-radius: 5px;
         cursor: pointer;
         transition: 0.3s;
-        animation: fadeInBtn 0.3s forwards ease-in-out;
+        animation: fadeInBottom 0.3s forwards ease-in-out;
         &.hidden {
-          animation: fadeOutBtn 0.15s forwards ease-in-out;
+          animation: fadeOutBottom 0.15s forwards ease-in-out;
         }
       }
-    }
-  }
-
-  @for $i from 1 to 6 {
-    &.color#{$i} {
-      background: color(color#{$i}Secondary);
-      form {
-        color: color(color#{$i}Primary);
-
-        div.input-container {
-          button {
-            outline: none;
-            color: color(color#{$i}Primary);
-            background: transparent;
-            border: 1px color(color#{$i}Primary) solid;
-            &:hover {
-              background: color(color#{$i}Primary);
-              border: 1px color(color#{$i}Secondary) solid;
-              color: color(color#{$i}Secondary);
-            }
-          }
-          input[type="text"],
-          input[type="number"] {
-            border-bottom: 1px color(color#{$i}Primary) solid !important;
-            color: color(color#{$i}Primary);
-            &::placeholder {
-              color: color(color#{$i}Primary);
-            }
-          }
-          .radio-input-container {
-            color: color(color#{$i}Primary);
-          }
-          .selection-input-contatiner .option {
-            border: 2px rgba(color(color#{$i}Primary), 0.2) solid;
-            &.selected {
-              border: 2px color(color#{$i}Primary) solid;
-            }
-          }
-        }
-      }
-
-      .progress-container .progress-bar-outer .progress-bar-inner {
-        background: color(color#{$i}Primary);
-      }
-    }
-  }
-
-  @for $i from 2 to 4 {
-    &.font#{$i} {
-      font-size: #{$i * 0.75}em; /*TODO*/
     }
   }
 }
 
 @import "./navigation.scss";
+@import "./color-font-changes.scss";
 @import "./animations.scss";

@@ -2,7 +2,7 @@ import React from "react";
 
 export default function NumberInputField(props) {
   return (
-    <div>
+    <div className="input-field">
       <input
         type="number"
         required
@@ -11,7 +11,9 @@ export default function NumberInputField(props) {
         placeholder={props.itemDetails.placeholder}
         onChange={props.handleInput}
         value={props.input}
+        id={props.multipleIndicator && props.multipleIndicator}
       />
+      <div className="border-line" />
     </div>
   );
 }

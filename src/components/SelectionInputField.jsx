@@ -1,7 +1,6 @@
 import React from "react";
 
 export default function SelectionInputField(props) {
-  if (props.input === "") props.handleInput(props.itemDetails.options[0]);
   return (
     <React.Fragment>
       <h2>{props.itemDetails.placeholder}</h2>

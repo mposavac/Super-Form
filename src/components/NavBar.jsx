@@ -41,6 +41,7 @@ export default function NavBar(props) {
           A
         </p>
       </div>
+      <i className="fas fa-chevron-down"></i>
     </nav>
   );
 }

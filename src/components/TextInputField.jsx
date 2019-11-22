@@ -2,7 +2,7 @@ import React from "react";
 
 export default function TextInputField(props) {
   return (
-    <div>
+    <div className="input-field">
       <input
         type="text"
         required
@@ -11,6 +11,7 @@ export default function TextInputField(props) {
         onChange={props.handleInput}
         value={props.input}
       />
+      <div className="border-line" />
     </div>
   );
 }

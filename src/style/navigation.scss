@@ -1,13 +1,49 @@
 nav {
   position: absolute;
-  top: 0;
   right: 0;
-  border: 1px black solid;
+  top: 7vh;
+  transform: translateY(-100%);
+  width: 15vw;
+  height: 7vh;
+  transition: 0.3s;
+  transition-delay: 0.15s;
+  border-radius: 0 0 0 8px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  animation: hideSettings 0.3s forwards ease-in 2.5s;
+  &::after {
+    position: absolute;
+    content: "";
+    bottom: -2em;
+    left: 0;
+    height: 2em;
+    width: 100%;
+    cursor: pointer;
+  }
+  .fa-chevron-down {
+    position: absolute;
+    left: 0.6em;
+    bottom: -1em;
+    font-size: 1.5em;
+    transition: 0.35s;
+  }
+
+  &:hover {
+    transform: translateY(0%);
+    .fa-chevron-down {
+      transform: rotateX(90deg);
+      opacity: 0;
+    }
+  }
 
   .color-container {
+    margin-top: 0.5em;
     display: flex;
     align-items: center;
-    justify-content: center;
+    justify-content: space-evenly;
+    width: 50%;
     .color {
       transition: 0.3s ease-in-out;
       height: 15px;
@@ -27,9 +63,11 @@ nav {
   }
 
   .font-container {
+    margin-top: 0.5em;
     display: flex;
     align-items: center;
-    justify-content: center;
+    justify-content: space-evenly;
+    width: 45%;
     p:nth-child(2) {
       font-size: 1.5em;
     }
@@ -51,7 +89,6 @@ nav {
     width: calc(100% - 2px);
     height: 12px;
     margin-right: 1em;
-    border: 1px black solid;
     overflow: hidden;
     border-radius: 5px;
     .progress-bar-inner {

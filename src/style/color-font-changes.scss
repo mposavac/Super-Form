@@ -1,0 +1,148 @@
+@for $i from 1 to 6 {
+  &.color#{$i} {
+    background: color(color#{$i}Secondary);
+    form {
+      color: color(color#{$i}Primary);
+
+      div.input-container {
+        button {
+          outline: none;
+          color: color(color#{$i}Primary);
+          background: transparent;
+          border: 1px color(color#{$i}Primary) solid;
+          &:hover {
+            background: color(color#{$i}Primary);
+            border: 1px color(color#{$i}Secondary) solid;
+            color: color(color#{$i}Secondary);
+          }
+        }
+        input[type="text"],
+        input[type="number"] {
+          border-bottom: 1px color(color#{$i}Primary) solid !important;
+          color: color(color#{$i}Primary);
+          &::placeholder {
+            color: color(color#{$i}Primary);
+          }
+        }
+        .border-line {
+          background: color(color#{$i}Primary);
+          label input[type="radio"] {
+            &:checked:before {
+              background: color(color#{$i}Primary);
+            }
+          }
+        }
+        .radio-input-container {
+          color: color(color#{$i}Primary);
+          label input[type="radio"] {
+            background: color(color#{$i}Contrast);
+            &:hover {
+              background: rgba(color(color#{$i}Contrast), 0.7);
+            }
+            &:checked:before,
+            &:checked:after {
+              background: color(color#{$i}Primary);
+            }
+          }
+        }
+        .date-input-container {
+          input[type="date"] {
+            //border-bottom: 1px rgba(color(color#{$i}Primary), 0.5) solid;
+            &::-webkit-datetime-edit-text,
+            &::-webkit-datetime-edit-month-field,
+            &::-webkit-datetime-edit-day-field,
+            &::-webkit-datetime-edit-year-field {
+              color: color(color#{$i}Primary);
+            }
+            &::-webkit-datetime-edit-month-field:focus,
+            &::-webkit-datetime-edit-day-field:focus,
+            &::-webkit-datetime-edit-year-field:focus {
+              background: rgba(color(color#{$i}Contrast), 0.15);
+            }
+            &::-webkit-calendar-picker-indicator {
+              background: transparent;
+            }
+            &::-webkit-calendar-picker-indicator {
+              color: rgba(color(color#{$i}Primary), 0.75);
+            }
+          }
+        }
+        .selection-input-contatiner .option {
+          border: 2px rgba(color(color#{$i}Primary), 0.2) solid;
+          &:hover {
+            border: 2px color(color#{$i}Primary) solid;
+          }
+          &.selected {
+            border: 2px color(color#{$i}Primary) solid;
+            color: color(color#{$i}Secondary);
+            &::after {
+              background: color(color#{$i}Primary);
+            }
+          }
+        }
+        .range-input-container {
+          .range-slider {
+            .indicator {
+              border: 1px solid color(color#{$i}Contrast);
+              span {
+                color: color(color#{$i}Contrast);
+              }
+            }
+            input {
+              &::-webkit-slider-runnable-track,
+              &::-webkit-slider-thumb {
+                background: color(color#{$i}Contrast);
+              }
+            }
+          }
+        }
+
+        .custom-input-container {
+          &:hover i {
+            color: color(color#{$i}Contrast);
+          }
+          i {
+            &:hover ~ i {
+              color: color(color#{$i}Primary);
+            }
+          }
+
+          &.active {
+            i {
+              font-weight: 900;
+            }
+            i.selected ~ i {
+              color: rgba(color(color#{$i}Primary), 0.5);
+            }
+          }
+        }
+      }
+    }
+
+    nav {
+      background: color(color#{$i}Contrast);
+      color: color(color#{$i}Secondary);
+      .fa-chevron-down {
+        color: color(color#{$i}Contrast);
+      }
+    }
+
+    .progress-container {
+      .progress-bar-outer {
+        border: 1px color(color#{$i}Contrast) solid;
+        .progress-bar-inner {
+          background: color(color#{$i}Primary);
+        }
+      }
+      p {
+        color: color(color#{$i}Contrast);
+      }
+    }
+  }
+
+  @for $i from 2 to 4 {
+    &.font#{$i} {
+      font-size: #{$i * 0.75}em; /*TODO*/
+    }
+  }
+}
