@@ -9,6 +9,7 @@ export default function TextInputField(props) {
           type="date"
           required
           name="date"
+          placeholder="Date"
           min="1900-01-01"
           max={`${new Date().getFullYear()}-${new Date().getMonth() +
             1}-${new Date().getDate()}`}

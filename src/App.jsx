@@ -7,6 +7,7 @@ import inputs from "./assets/inputFields.json";
 
 import NavBar from "./components/NavBar.jsx";
 import ProgressBar from "./components/ProgressBar.jsx";
+import FormSummary from "./components/FormSummary.jsx";
 import TextInputField from "./components/TextInputField.jsx";
 import NumberInputField from "./components/NumberInputField.jsx";
 import DateInputField from "./components/DateInputField.jsx";
@@ -140,7 +141,6 @@ export class App extends Component {
     return (
       <div className={`form-container ${this.state.color} ${this.state.font}`}>
         <NavBar handleStyleChange={this.handleStyleChange} />
-
         {!this.state.finished && index < inputs.length ? (
           <form onSubmit={this.handleNext}>
             <div className="form-info">
@@ -148,7 +148,11 @@ export class App extends Component {
               <i
                 className="fas fa-arrow-left"
                 onClick={this.handlePrev}
-                style={!index ? { opacity: 0 } : { opacity: 1 }}
+                style={
+                  !index
+                    ? { opacity: 0, visibility: "hidden" }
+                    : { opacity: 1, visibility: "visible" }
+                }
               />
             </div>
             <div
@@ -174,25 +178,29 @@ export class App extends Component {
               </button>
             </div>
           </form>
-        ) : !this.state.submited ? (
-          <div className="form-summary">
-            <h2>You Completed Super Form click finish to submit it!</h2>
-            <button onClick={this.handleSubmit}>
-              Finish
-              <i className="fas fa-chevron-right" />
-            </button>
-          </div>
         ) : (
-          <div className="form-summary">
-            <h2>Your Form is submited! Thank you!</h2>
-            <button onClick={this.handleRetake}>
-              Take this awesome form again
-            </button>
-          </div>
+          <FormSummary
+            handleSubmit={this.handleSubmit}
+            handleRetake={this.handleRetake}
+            submited={this.state.submited}
+          />
         )}
         <ProgressBar
           progress={!this.state.finished ? (index / inputs.length) * 100 : 100}
         />
+        <svg
+          version="1.1"
+          id="svg-wave"
+          xmlns="http://www.w3.org/2000/svg"
+          x="0px"
+          y="0px"
+          viewBox="0 0 1400 300"
+        >
+          <path
+            className="st0"
+            d="M556,149c174,49,241,125,447,117s412-71,412-71l-1,125l-1111-6l-315-1l-1-75C-13,238,382,100,556,149z"
+          />
+        </svg>
       </div>
     );
   }

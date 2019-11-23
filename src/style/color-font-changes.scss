@@ -36,6 +36,7 @@
         }
         .date-input-container {
           input[type="date"] {
+            color: color(color#{$i}Primary);
             &::-webkit-datetime-edit-text,
             &::-webkit-datetime-edit-month-field,
             &::-webkit-datetime-edit-day-field,
@@ -116,9 +117,11 @@
         }
       }
     }
+
     .form-summary h2 {
       color: color(color#{$i}Primary);
     }
+
     button {
       outline: none;
       color: color(color#{$i}Primary);
@@ -128,6 +131,13 @@
         background: color(color#{$i}Primary);
         border: 1px color(color#{$i}Secondary) solid;
         color: color(color#{$i}Secondary);
+      }
+    }
+
+    h1.logo-name {
+      color: rgba(color(color#{$i}Primary), 0.75);
+      @include mobile {
+        color: color(color#{$i}Contrast);
       }
     }
 
@@ -143,12 +153,17 @@
       .progress-bar-outer {
         border: 1px color(color#{$i}Contrast) solid;
         .progress-bar-inner {
-          background: color(color#{$i}Primary);
+          background: color(color#{$i}Secondary);
         }
       }
       p {
-        color: color(color#{$i}Contrast);
+        color: color(color#{$i}Secondary);
       }
+    }
+
+    #svg-wave path {
+      transition: 0.3s;
+      fill: color(color#{$i}Primary);
     }
   }
 
