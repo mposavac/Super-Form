@@ -97,6 +97,13 @@
         @include mobile {
           font-size: 5vw;
         }
+        span {
+          display: block;
+          font-size: 1.5vw;
+          @include mobile {
+            font-size: 3.5vw;
+          }
+        }
       }
 
       .input-field {
@@ -226,6 +233,14 @@
           &::-webkit-inner-spin-button {
             display: none;
           }
+          @include mobile {
+            &:invalid {
+              &::after {
+                position: absolute;
+                content: "dd.mm.gggg.";
+              }
+            }
+          }
         }
       }
 
@@ -266,7 +281,7 @@
           outline: none;
           &::-webkit-file-upload-button {
             visibility: hidden;
-            padding: 1.5em 1.25em;
+            padding: 1.5em 2em;
             @include mobile {
               padding: 1.25em 1.25vw;
             }
@@ -405,6 +420,7 @@
         }
         .multiple-input-item {
           min-width: 200px;
+          margin: auto;
           .input-field ~ h2 {
             display: none;
           }

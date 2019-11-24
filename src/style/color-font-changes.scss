@@ -99,6 +99,9 @@
         .custom-input-container {
           &:hover i {
             color: color(color#{$i}Contrast);
+            @include mobile {
+              color: color(color#{$i}Primary);
+            }
           }
           i {
             &:hover ~ i {
@@ -178,17 +181,26 @@
         p:not(.indicator),
         input[type="date"] {
           font-size: #{$i * 0.75}vw !important;
+          @include tablet {
+            font-size: #{$i * 1.5}vw !important;
+          }
           @include mobile {
             font-size: #{$i * 0.6}em !important;
           }
           &.error-msg {
             bottom: 3em !important;
+            @include tablet {
+              bottom: 1em !important;
+            }
             @include mobile {
               bottom: 1.5em !important;
             }
           }
           &.option {
             font-size: #{$i * 0.6}vw !important;
+            @include tablet {
+              font-size: #{$i * 0.5}em !important;
+            }
             @include mobile {
               font-size: #{$i * 0.35}em !important;
             }
@@ -197,6 +209,9 @@
         i:not(.fa-upload),
         span {
           font-size: #{$i * 0.6}vw !important;
+          @include tablet {
+            font-size: #{$i * 1.5}vw !important;
+          }
           @include mobile {
             font-size: #{$i * 0.4}em !important;
           }
@@ -211,6 +226,9 @@
         input[type="text"],
         input[type="number"] {
           font-size: #{$i * 0.9}vw !important;
+          @include tablet {
+            font-size: #{$i * 1.6}vw !important;
+          }
           @include mobile {
             font-size: #{$i * 0.6}em !important;
           }
@@ -227,6 +245,9 @@
         label {
           font-size: #{$i * 0.7}vw !important;
           z-index: 10;
+          @include tablet {
+            font-size: #{$i * 1.5}vw !important;
+          }
           @include mobile {
             font-size: #{$i * 0.5}em !important;
           }
@@ -235,8 +256,6 @@
           opacity: 0 !important;
         }
       }
-
-      //font-size: #{$i * 0.75}em; /*TODO*/
     }
   }
 }

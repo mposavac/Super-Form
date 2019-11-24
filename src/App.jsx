@@ -163,8 +163,8 @@ export class App extends Component {
     if (inputs[index].type === "Number") {
       if (input.length < inputs[index].range[0].length)
         return `Enter at least ${inputs[index].range[0].length} digits!`;
-      if (String(input.length) > inputs[index].range[2])
-        return `Maximum is ${inputs[index].range[2]} digits.`;
+      if (input > parseInt(inputs[index].range[1]))
+        return `Maximum number is ${inputs[index].range[1]}.`;
       return "Please enter positive integer number!";
     }
     if (inputs[index].type === "Date") return "Enter year higher than 1900!";

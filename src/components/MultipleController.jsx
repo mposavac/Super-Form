@@ -64,7 +64,12 @@ export class MultipleController extends Component {
   render() {
     return (
       <div>
-        <h2>{this.props.itemDetails.placeholder}</h2>
+        <h2>
+          {this.props.itemDetails.placeholder}
+          {this.state.numOfChilds > 1 && window.innerWidth < 650 && (
+            <span>(Scroll right)</span>
+          )}
+        </h2>
         {this.state.numOfChilds && this.returnComponents()}
         <button className={!this.state.allFilled ? "hidden" : ""} type="submit">
           OK <i className="fas fa-chevron-right" />

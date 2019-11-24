@@ -105,7 +105,7 @@
     "name": "kidsNumber",
     "placeholder": "How many ?",
     "type": "Number",
-    "range": ["1", "20", "2"]
+    "range": ["1", "70", "2"]
   },
   {
     "name": "kidsAgeAndGender",

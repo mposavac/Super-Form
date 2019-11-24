@@ -15,7 +15,7 @@ export default function FileInputField(props) {
           name={props.itemDetails.name}
           id={props.itemDetails.name}
           multiple={props.itemDetails.multiple}
-          accept=".jpg, .jpeg, .png .bmp"
+          accept=".jpg, .jpeg, .png, .bmp"
           onChange={props.handleInput}
         />
       </div>
