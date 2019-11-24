@@ -1,23 +1,26 @@
 nav {
   position: absolute;
-  top: 7vh;
+  top: 0;
   right: 0;
   transform: translateY(-100%);
   width: 15vw;
   height: 7vh;
   transition: 0.3s;
   transition-delay: 0.15s;
-  border-radius: 0 0 0 8px;
+  border-radius: 0 0 0 10px;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  animation: hideSettings 0.3s forwards ease-in 2.5s;
   z-index: 1000;
+  @include tablet {
+    width: 30%;
+    height: 10vh;
+  }
   @include mobile {
     width: 100%;
     height: 12vh;
-    top: 0;
+    min-height: 12vw;
     animation: none;
   }
   &::after {
@@ -28,14 +31,24 @@ nav {
     height: 2em;
     width: 100%;
     cursor: pointer;
+    @include mobile {
+      width: 20%;
+      left: unset;
+      right: 0;
+    }
+  }
+  p {
+    cursor: pointer;
   }
   .fa-chevron-down {
     position: absolute;
     left: 0.6em;
-    bottom: -1em;
+    bottom: -1.25em;
     font-size: 1.5em;
+    animation: jello-diagonal-2 0.8s cubic-bezier(0.215, 0.61, 0.355, 1) 3 both
+      1.5s;
     transition: 0.35s;
-    @include mobile {
+    @include tablet {
       right: 0.6em;
       left: unset;
     }
@@ -118,14 +131,36 @@ nav {
 }
 
 #svg-wave {
-  position: fixed;
-  bottom: -4vh;
+  position: absolute;
+  bottom: -2.5vh;
   width: 100%;
+  left: 0%;
   z-index: 0;
   opacity: 0.65;
   pointer-events: none;
-  @include mobile {
+  overflow: visible;
+  path.st0 {
+    transform: translateX(-100%);
+  }
+  path.st2 {
+    transform: translateX(100%);
+  }
+  &.prev {
+    animation: translateLeft 0.4s ease both;
+    @include mobile {
+      animation: translateLeftMobile 0.4s ease both;
+    }
+  }
+  &.next {
+    animation: translateRight 0.4s ease both;
+    @include mobile {
+      animation: translateRightMobile 0.4s ease both;
+    }
+  }
+  @include tablet {
     bottom: 0em;
-    width: 155%;
+  }
+  @include mobile {
+    width: 160%;
   }
 }

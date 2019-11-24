@@ -2,37 +2,44 @@
   {
     "name": "name",
     "placeholder": "Name",
-    "type": "Text"
+    "type": "Text",
+    "pattern": "^[^±!@£$%^&*_+§¡€#¢§¶•ªº«\\/<>?:;|=.,]{1,30}$"
   },
   {
     "name": "lastName",
     "placeholder": "Last Name",
-    "type": "Text"
+    "type": "Text",
+    "pattern": "^[^±!@£$%^&*_+§¡€#¢§¶•ªº«\\/<>?:;|=.,]{1,30}$"
   },
   {
     "name": "address",
     "placeholder": "Address",
-    "type": "Text"
+    "type": "Text",
+    "pattern": "^[^±!@£$%^&*_+§¡€#¢§¶•ªº«\\/<>?:;|=.]{1,70}$"
   },
   {
     "name": "city",
     "placeholder": "City",
-    "type": "Text"
+    "type": "Text",
+    "pattern": "^[^±!@£$%^&*_+§¡€#¢§¶•ªº«\\/<>?:;|=.]{1,40}$"
   },
   {
     "name": "zipCode",
     "placeholder": "Zip Code",
-    "type": "Number"
+    "type": "Number",
+    "range": ["1000", "9999999999", "10"]
   },
   {
     "name": "state",
     "placeholder": "State",
-    "type": "Text"
+    "type": "Text",
+    "pattern": "^[^±!@£$%^&*_+§¡€#¢§¶•ªº«\\/<>?:;|=.]{1,40}$"
   },
   {
     "name": "country",
     "placeholder": "Country",
-    "type": "Text"
+    "type": "Text",
+    "pattern": "^[^±!@£$%^&*_+§¡€#¢§¶•ªº«\\/<>?:;|=.]{1,40}$"
   },
   {
     "name": "gender",
@@ -48,17 +55,20 @@
   {
     "name": "fatherName",
     "placeholder": "Father's Name",
-    "type": "Text"
+    "type": "Text",
+    "pattern": "^[^±!@£$%^&*_+§¡€#¢§¶•ªº«\\/<>?:;|=.,]{1,30}$"
   },
   {
     "name": "bornCity",
     "placeholder": "City of Born",
-    "type": "Text"
+    "type": "Text",
+    "pattern": "^[^±!@£$%^&*_+§¡€#¢§¶•ªº«\\/<>?:;|=.,]{1,40}$"
   },
   {
     "name": "bornCountryAndState",
     "placeholder": "State and Country of Born",
-    "type": "Text"
+    "type": "Text",
+    "pattern": "^[^±!@£$%^&*_+§¡€#¢§¶•ªº«\\/<>?:;|=.]{1,70}$"
   },
   {
     "name": "profileImg",
@@ -68,18 +78,21 @@
   },
   {
     "name": "productQuestion1",
-    "placeholder": "How did you heard about the product ?",
-    "type": "Text"
+    "placeholder": "How did you hear about the product?",
+    "type": "Text",
+    "pattern": "^[^±!@£$%^&*_+§¡€#¢§¶•ªº«\\/<>?:;|=]{1,100}$"
   },
   {
     "name": "productQuestion2",
-    "placeholder": "When did you heard about the product ?",
-    "type": "Text"
+    "placeholder": "When did you hear about the product?",
+    "type": "Text",
+    "pattern": "^[^±!@£$%^&*_+§¡€#¢§¶•ªº«\\/<>?:;|=]{1,100}$"
   },
   {
     "name": "productQuestion3",
-    "placeholder": "How often are they using the product ?",
-    "type": "Text"
+    "placeholder": "How often are you using the product ?",
+    "type": "Text",
+    "pattern": "^[^±!@£$%^&*_+§¡€#¢§¶•ªº«\\/<>?:;|=]{1,100}$"
   },
   {
     "name": "kidsQuestion1",
@@ -91,14 +104,20 @@
   {
     "name": "kidsNumber",
     "placeholder": "How many ?",
-    "type": "Number"
+    "type": "Number",
+    "range": ["1", "20", "2"]
   },
   {
     "name": "kidsAgeAndGender",
     "placeholder": "Which age and gender ?",
     "type": "Multiple",
     "additional_fields": [
-      { "name": "kidAge", "placeholder": "Age", "type": "Number" },
+      {
+        "name": "kidAge",
+        "placeholder": "Age",
+        "type": "Number",
+        "range": ["0", "99", "2"]
+      },
       {
         "name": "kidGender",
         "placeholder": "Gender",
@@ -110,7 +129,8 @@
   {
     "name": "teethBrushQuestion1",
     "placeholder": "How often they brush their teeth ?",
-    "type": "Text"
+    "type": "Text",
+    "pattern": "^[^±!@£$%^&*_+§¡€#¢§¶•ªº«\\/<>?:;|=]{1,100}$"
   },
   {
     "name": "teethBrushQuestion2",
@@ -133,7 +153,8 @@
   {
     "name": "teethBrushQuestion5",
     "placeholder": "How often they brush their teeth ?",
-    "type": "Text"
+    "type": "Text",
+    "pattern": "^[^±!@£$%^&*_+§¡€#¢§¶•ªº«\\/<>?:;|=]{1,100}$"
   },
   {
     "name": "gamesQuestion1",
@@ -141,7 +162,6 @@
     "type": "Radio",
     "options": ["Tablet", "Mobile Phone"]
   },
-
   {
     "name": "gamesQuestion2",
     "placeholder": "Is it their or parents phone ?",
@@ -151,7 +171,8 @@
   {
     "name": "gamesQuestion3",
     "placeholder": "How often they play games ?",
-    "type": "Text"
+    "type": "Text",
+    "pattern": "^[^±!@£$%^&*_+§¡€#¢§¶•ªº«\\/<>?:;|=]{1,100}$"
   },
   {
     "name": "gamesQuestion4",

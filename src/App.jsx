@@ -7,6 +7,7 @@ import inputs from "./assets/inputFields.json";
 
 import NavBar from "./components/NavBar.jsx";
 import ProgressBar from "./components/ProgressBar.jsx";
+import SvgWave from "./components/SvgWave.jsx";
 import FormSummary from "./components/FormSummary.jsx";
 import TextInputField from "./components/TextInputField.jsx";
 import NumberInputField from "./components/NumberInputField.jsx";
@@ -36,6 +37,7 @@ export class App extends Component {
     animate: false,
     finished: false,
     submited: false,
+    errorMsg: undefined,
     color: "color1",
     font: "font1"
   };
@@ -53,18 +55,43 @@ export class App extends Component {
     else if (inputs[index].type === "File")
       this.setState({ input: event.target.files });
     else if (inputs[index].type === "Multiple") this.setState({ input: event });
-    else this.setState({ input: event.target.value });
-    console.log("handleInputAPP", this.state);
+    else {
+      if (event.target.validity.valid)
+        this.setState({ input: event.target.value, errorMsg: undefined });
+      else {
+        let errMsg = this.checkErrors(event.target.value, index);
+        this.setState({
+          input: event.target.value,
+          errorMsg: errMsg
+        });
+      }
+    }
   };
 
   handleNext = event => {
-    if (event) event.preventDefault();
     let { index } = this.props;
-    if (index + 1 < inputs.length) {
+    event.preventDefault();
+    if (inputs[index].type === "Multiple") {
+      if (this.state.input !== "") {
+        this.setState({ animate: " next" });
+        setTimeout(() => {
+          this.props.addData(inputs[index].name, this.state.input);
+          this.setState({
+            input: this.props.formData[inputs[index + 1].name]
+              ? this.props.formData[inputs[index + 1].name]
+              : "",
+            animate: false
+          });
+          this.props.changeIndex(index + 1);
+        }, 400);
+      }
+    } else if (event && event.type === "submit") {
       this.setState({ animate: " next" });
       setTimeout(() => {
         this.props.addData(inputs[index].name, this.state.input);
-        if (
+        if (index + 1 >= inputs.length)
+          this.setState({ animate: false, finished: true });
+        else if (
           inputs[index].redirectTo &&
           this.state.input === inputs[index].redirectTo["if"]
         ) {
@@ -72,6 +99,7 @@ export class App extends Component {
             input: "",
             animate: false
           });
+          this.props.changeIndex(inputs[index].redirectTo["index"]);
         } else if (this.props.formData[inputs[index + 1].name]) {
           this.setState({
             input: this.props.formData[inputs[index + 1].name],
@@ -82,12 +110,6 @@ export class App extends Component {
           this.setState({ input: "", animate: false });
           this.props.changeIndex(index + 1);
         }
-      }, 400);
-    } else {
-      this.setState({ animate: " next" });
-      setTimeout(() => {
-        this.props.addData(inputs[index].name, this.state.input);
-        this.setState({ animate: false, finished: true });
       }, 400);
     }
   };
@@ -134,12 +156,26 @@ export class App extends Component {
     this.setState({ finished: false, submited: false });
   };
 
+  checkErrors = (input, index) => {
+    if (input === "") return "This field is required!";
+    if (inputs[index].type === "Text")
+      return "Please don't use punctuation marks!";
+    if (inputs[index].type === "Number") {
+      if (input.length < inputs[index].range[0].length)
+        return `Enter at least ${inputs[index].range[0].length} digits!`;
+      if (String(input.length) > inputs[index].range[2])
+        return `Maximum is ${inputs[index].range[2]} digits.`;
+      return "Please enter positive integer number!";
+    }
+    if (inputs[index].type === "Date") return "Enter year higher than 1900!";
+    return "Please check input field!";
+  };
+
   render() {
     const { index } = this.props;
     const TagName = this.components[inputs[index].type];
-    console.log("this.state APP:", this.state);
     return (
-      <div className={`form-container ${this.state.color} ${this.state.font}`}>
+      <div className={`page-container ${this.state.color} ${this.state.font}`}>
         <NavBar handleStyleChange={this.handleStyleChange} />
         {!this.state.finished && index < inputs.length ? (
           <form onSubmit={this.handleNext}>
@@ -162,9 +198,10 @@ export class App extends Component {
             >
               <TagName
                 handleInput={this.handleInput}
+                handleNext={this.handleNext}
                 itemDetails={inputs[index]}
                 input={this.state.input}
-                handleNext={this.handleNext}
+                font={this.state.font}
               />
               <button
                 className={this.state.input === "" ? "hidden" : ""}
@@ -176,6 +213,9 @@ export class App extends Component {
               >
                 OK <i className="fas fa-chevron-right" />
               </button>
+              {this.state.errorMsg && (
+                <p className="error-msg">{this.state.errorMsg}</p>
+              )}
             </div>
           </form>
         ) : (
@@ -188,28 +228,15 @@ export class App extends Component {
         <ProgressBar
           progress={!this.state.finished ? (index / inputs.length) * 100 : 100}
         />
-        <svg
-          version="1.1"
-          id="svg-wave"
-          xmlns="http://www.w3.org/2000/svg"
-          x="0px"
-          y="0px"
-          viewBox="0 0 1400 300"
-        >
-          <path
-            className="st0"
-            d="M556,149c174,49,241,125,447,117s412-71,412-71l-1,125l-1111-6l-315-1l-1-75C-13,238,382,100,556,149z"
-          />
-        </svg>
+        <SvgWave animate={this.state.animate} />
       </div>
     );
   }
 }
 
 const mapStateToProps = state => {
-  console.log("STATE:", state);
   return {
-    formData: state,
+    formData: state.formData,
     index: state.index
   };
 };

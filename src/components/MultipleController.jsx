@@ -12,10 +12,14 @@ export class MultipleController extends Component {
   };
 
   componentDidMount() {
-    if (this.props.formData[this.props.itemDetails.name]) {
-      this.setState(this.props.formData[this.props.itemDetails.name]);
+    let { itemDetails, formData, index } = this.props;
+    let numOfChilds = formData[inputs[index - 1].name];
+    if (
+      formData[itemDetails.name] &&
+      formData[itemDetails.name].numOfChilds === numOfChilds
+    ) {
+      this.setState(formData[itemDetails.name]);
     } else {
-      let numOfChilds = this.props.formData[inputs[this.props.index - 1].name];
       this.setState({ numOfChilds: numOfChilds });
     }
   }
@@ -23,17 +27,24 @@ export class MultipleController extends Component {
   handleInput = (payload, groupId) => {
     let stateName = "input" + groupId;
     this.setState({ [stateName]: payload });
-  };
-  handleNext = () => {
-    this.props.addData(this.props.itemDetails.name, this.state);
-    this.props.handleNext();
+    if (payload) this.props.handleInput(this.state);
+    else this.props.handleInput("");
   };
   componentDidUpdate() {
+    let inputLength = 0;
+    for (let i = 0; i < this.state.numOfChilds; i++) {
+      if (this.state[`input${i}`]) inputLength++;
+    }
     if (
       this.state.allFilled === false &&
-      this.state[`input${this.state.numOfChilds - 1}`]
+      String(inputLength) === this.state.numOfChilds
     )
       this.setState({ allFilled: true });
+    else if (
+      this.state.allFilled === true &&
+      String(inputLength) !== this.state.numOfChilds
+    )
+      this.setState({ allFilled: false });
   }
   returnComponents = () => {
     let output = [];
@@ -51,15 +62,11 @@ export class MultipleController extends Component {
     return <div className="multiple-input-container">{output}</div>;
   };
   render() {
-    console.log("COTNROLER", this.state);
     return (
       <div>
         <h2>{this.props.itemDetails.placeholder}</h2>
         {this.state.numOfChilds && this.returnComponents()}
-        <button
-          className={!this.state.allFilled ? "hidden" : ""}
-          onClick={this.handleNext}
-        >
+        <button className={!this.state.allFilled ? "hidden" : ""} type="submit">
           OK <i className="fas fa-chevron-right" />
         </button>
       </div>
@@ -68,14 +75,9 @@ export class MultipleController extends Component {
 }
 const mapStateToProps = state => {
   return {
-    formData: state,
+    formData: state.formData,
     index: state.index
   };
 };
-const mapStateToDispatch = dispatch => {
-  return {
-    addData: (key, value) =>
-      dispatch({ type: "ADD_FORM_DATA", data: { key: key, value: value } })
-  };
-};
-export default connect(mapStateToProps, mapStateToDispatch)(MultipleController);
+
+export default connect(mapStateToProps)(MultipleController);

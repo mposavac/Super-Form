@@ -1,7 +1,11 @@
-const formReducer = (state = { index: 0 }, action) => {
+const formReducer = (state = { index: 0, formData: [] }, action) => {
   switch (action.type) {
     case "ADD_FORM_DATA":
-      let newState = { ...state, [action.data.key]: action.data.value };
+      let formData = state.formData;
+      let newState = {
+        ...state,
+        formData: { ...formData, [action.data.key]: action.data.value }
+      };
       localStorage.setItem("state", JSON.stringify(newState));
       return newState;
     case "CHANGE_INDEX": {
@@ -17,9 +21,9 @@ const formReducer = (state = { index: 0 }, action) => {
       }
       return state;
     case "SUBMIT_FORM":
-      //SUBMIT
+      //SUBMIT formData
       localStorage.clear();
-      return { index: 0 };
+      return { index: 0, formData: [] };
     default:
       return state;
   }

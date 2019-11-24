@@ -2,7 +2,8 @@ import React from "react";
 
 export default function RangeInputField(props) {
   let screen;
-  if (window.innerWidth < 1100) screen = window.innerWidth * 0.95 * 0.75 - 22;
+  if (window.innerWidth < 1100 || props.font !== "font1")
+    screen = window.innerWidth * 0.95 * 0.75 - 22;
   else screen = (window.innerWidth / 2) * 0.75 - 22;
   const translateIndicator =
     ((props.input === "" ? "0" : props.input) / props.itemDetails.range[1]) *
@@ -35,7 +36,7 @@ export default function RangeInputField(props) {
             }}
           >
             {props.input === "" ? "0" : props.input}
-            <span>{props.itemDetails.unit}</span>
+            <span className="unit">{props.itemDetails.unit}</span>
           </p>
         </div>
       </div>

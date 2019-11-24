@@ -20,35 +20,35 @@ export class MultipleInputField extends Component {
   componentDidUpdate() {
     if (this.state.input1.length > 0 && this.state.input2.length > 0)
       this.props.handleInput(this.state, this.props.groupId);
+
+    if (this.state.input1.length === 0 || this.state.input2.length === 0)
+      this.props.handleInput(undefined, this.props.groupId);
   }
   render() {
     let { additional_fields } = this.props.itemDetails;
     return (
-      <React.Fragment>
-        <div>
-          <NumberInputField
-            handleInput={this.handleInput}
-            itemDetails={additional_fields[0]}
-            input={this.state.input1}
-            multipleIndicator="input1"
-            groupId={this.props.groupId}
-          />
-          <RadioInputField
-            handleInput={this.handleInput}
-            itemDetails={additional_fields[1]}
-            input={this.state.input2}
-            multipleIndicator="input2"
-            groupId={this.props.groupId}
-          />
-        </div>
-      </React.Fragment>
+      <div className="multiple-input-item">
+        <NumberInputField
+          handleInput={this.handleInput}
+          itemDetails={additional_fields[0]}
+          input={this.state.input1}
+          multipleIndicator="input1"
+          groupId={this.props.groupId}
+        />
+        <RadioInputField
+          handleInput={this.handleInput}
+          itemDetails={additional_fields[1]}
+          input={this.state.input2}
+          multipleIndicator="input2"
+          groupId={this.props.groupId}
+        />
+      </div>
     );
   }
 }
 
 const mapStateToProps = state => {
   return {
-    formData: state,
     index: state.index
   };
 };

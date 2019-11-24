@@ -3,12 +3,33 @@
   <head>
     <meta charset="utf-8" />
     <link rel="icon" href="%PUBLIC_URL%/favicon.ico" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta
+      name="viewport"
+      content="minimal-ui, width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no"
+    />
     <meta name="theme-color" content="#000000" />
     <title>Super Form</title>
   </head>
   <body>
     <div id="root"></div>
+
+    <script src="https://www.gstatic.com/firebasejs/7.5.0/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/7.5.0/firebase-analytics.js"></script>
+    <script>
+      var firebaseConfig = {
+        apiKey: "AIzaSyDJ3PDehddocaR-Y_ppJHgp3h_j1Tjhf2s",
+        authDomain: "superform-react.firebaseapp.com",
+        databaseURL: "https://superform-react.firebaseio.com",
+        projectId: "superform-react",
+        storageBucket: "superform-react.appspot.com",
+        messagingSenderId: "142847576344",
+        appId: "1:142847576344:web:04d44a1e27e93da36df66d",
+        measurementId: "G-ZE2DSB5X3X"
+      };
+      firebase.initializeApp(firebaseConfig);
+      firebase.analytics();
+    </script>
+
     <script src="https://kit.fontawesome.com/1febaa92db.js"></script>
   </body>
 </html>

@@ -6,7 +6,9 @@ export default function NumberInputField(props) {
       <input
         type="number"
         required
-        min="0"
+        min={props.itemDetails.range[0]}
+        max={props.itemDetails.range[1]}
+        maxLength={props.itemDetails.range[2]}
         name={props.itemDetails.name}
         placeholder={props.itemDetails.placeholder}
         onChange={props.handleInput}

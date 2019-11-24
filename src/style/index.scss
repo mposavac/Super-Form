@@ -1,6 +1,6 @@
 @import "./definitions.scss";
 
-.form-container {
+.page-container {
   position: relative;
   height: 100vh;
   width: 100%;
@@ -75,7 +75,7 @@
     div.input-container {
       position: relative;
       top: 50%;
-      animation: fadeIn 0.35s forwards ease;
+      animation: fadeIn 0.3s forwards ease;
       @include mobile {
         top: 70%;
       }
@@ -89,8 +89,13 @@
       h2 {
         margin-bottom: 2.5em;
         pointer-events: none;
+        font-size: 1.7vw;
         @include tablet {
-          margin-bottom: 1.5em;
+          font-size: 3vw;
+          margin-bottom: 1.25em;
+        }
+        @include mobile {
+          font-size: 5vw;
         }
       }
 
@@ -100,18 +105,28 @@
         width: 75%;
         position: relative;
         margin: auto;
+        @include mobile {
+          width: 90%;
+        }
         input[type="text"],
         input[type="number"] {
           background: transparent;
-
           outline: none;
           border: none;
           height: 100%;
           width: 100%;
-          font-size: 1.5em;
+          font-size: 1.75vw;
           padding: 0 0 0 0.5em;
           &::-webkit-inner-spin-button {
             -webkit-appearance: none;
+          }
+          @include tablet {
+            font-size: 3vw;
+          }
+          @include mobile {
+            padding: 0;
+            text-align: center;
+            font-size: 5vw;
           }
         }
         input[type="text"]:focus ~ .border-line,
@@ -135,23 +150,34 @@
         flex-direction: column;
         align-items: center;
         label {
-          height: 3em;
+          height: 2.5em;
+          line-height: 2.5em;
           min-width: 8em;
+          font-size: 1.5em;
           cursor: pointer;
+          @include tablet {
+            font-size: 2.5vw;
+          }
+          @include mobile {
+            font-size: 4vw;
+            min-width: 6em;
+          }
           input[type="radio"] {
             -webkit-appearance: none;
-
             outline: none;
             position: relative;
-            top: 0.5em;
             left: 0;
+            top: 0.25em;
             height: 2em;
             width: 2em;
             transition: all 0.15s ease-out;
-            border: none;
             border-radius: 50%;
             cursor: pointer;
             margin-right: 0.75em;
+            @include mobile {
+              height: 1.5em;
+              width: 1.5em;
+            }
             &:checked:before {
               height: 1.25em;
               width: 1.25em;
@@ -159,6 +185,11 @@
               text-align: center;
               line-height: 2em;
               transition: 0.15s;
+              @include mobile {
+                height: 0.8em;
+                width: 0.8em;
+                line-height: 1.5em;
+              }
             }
             &:checked:after,
             &:checked:before {
@@ -185,7 +216,6 @@
           font-size: 1.25em;
           outline: none;
           position: relative;
-
           &::-webkit-datetime-edit {
             margin-right: -1em;
             padding: 0.5em 0.5em 0.5em 0.75em;
@@ -201,6 +231,8 @@
 
       .file-input-container {
         position: relative;
+        width: 80%;
+        margin: auto;
         label {
           cursor: pointer;
           position: absolute;
@@ -211,6 +243,7 @@
           overflow: hidden;
           @include mobile {
             left: 0;
+            font-size: 3.25vw;
           }
           i {
             margin-right: 0.3em;
@@ -233,7 +266,10 @@
           outline: none;
           &::-webkit-file-upload-button {
             visibility: hidden;
-            padding: 1.5em 2em;
+            padding: 1.5em 1.25em;
+            @include mobile {
+              padding: 1.25em 1.25vw;
+            }
           }
           &::-webkit-file-upload-text {
             margin-left: 50em;
@@ -367,11 +403,26 @@
           justify-content: start;
           overflow-x: scroll;
         }
-        .input-field ~ h2 {
-          display: none;
+        .multiple-input-item {
+          min-width: 200px;
+          .input-field ~ h2 {
+            display: none;
+          }
+          .radio-input-container {
+            margin-top: 1.5em;
+          }
         }
-        .radio-input-container {
-          margin-top: 1.5em;
+      }
+
+      p.error-msg {
+        position: absolute;
+        bottom: 4em;
+        left: 50%;
+        margin: auto;
+        width: 100%;
+        animation: errorFade 0.3s both ease-in-out;
+        @include tablet {
+          bottom: 3em;
         }
       }
     }
@@ -399,7 +450,7 @@
     transition: 0.3s;
     animation: fadeInBottom 0.3s forwards ease-in-out;
     @include tablet {
-      margin-top: 1.5em;
+      margin-top: 3.5em;
     }
     &.hidden {
       animation: fadeOutBottom 0.15s forwards ease-in-out;

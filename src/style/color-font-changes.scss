@@ -162,14 +162,81 @@
     }
 
     #svg-wave path {
-      transition: 0.3s;
+      transition: 0.4s;
       fill: color(color#{$i}Primary);
     }
   }
 
   @for $i from 2 to 4 {
+    .page-container {
+      overflow-y: scroll;
+    }
     &.font#{$i} {
-      font-size: #{$i * 0.75}em; /*TODO*/
+      form,
+      .form-summary {
+        width: 95%;
+        p:not(.indicator),
+        input[type="date"] {
+          font-size: #{$i * 0.75}vw !important;
+          @include mobile {
+            font-size: #{$i * 0.6}em !important;
+          }
+          &.error-msg {
+            bottom: 3em !important;
+            @include mobile {
+              bottom: 1.5em !important;
+            }
+          }
+          &.option {
+            font-size: #{$i * 0.6}vw !important;
+            @include mobile {
+              font-size: #{$i * 0.35}em !important;
+            }
+          }
+        }
+        i:not(.fa-upload),
+        span {
+          font-size: #{$i * 0.6}vw !important;
+          @include mobile {
+            font-size: #{$i * 0.4}em !important;
+          }
+          &.unit {
+            font-size: #{$i * 0.35}em !important;
+          }
+        }
+        button {
+          font-size: #{$i * 7}px !important;
+        }
+        h2,
+        input[type="text"],
+        input[type="number"] {
+          font-size: #{$i * 0.9}vw !important;
+          @include mobile {
+            font-size: #{$i * 0.6}em !important;
+          }
+        }
+        h2 {
+          padding-top: 3em;
+          margin-bottom: 1em !important;
+        }
+        input[type="text"],
+        input[type="number"] {
+          text-overflow: ellipsis;
+          white-space: nowrap;
+        }
+        label {
+          font-size: #{$i * 0.7}vw !important;
+          z-index: 10;
+          @include mobile {
+            font-size: #{$i * 0.5}em !important;
+          }
+        }
+        input[type="file"] {
+          opacity: 0 !important;
+        }
+      }
+
+      //font-size: #{$i * 0.75}em; /*TODO*/
     }
   }
 }
