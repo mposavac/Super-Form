@@ -1,14 +1,16 @@
 @import "./definitions.scss";
-
+html {
+  scroll-behavior: smooth;
+  overflow-x: hidden;
+}
 .page-container {
   position: relative;
-  height: 100vh;
+  min-height: 100vh;
   width: 100%;
-  overflow: hidden;
   transition: 0.3s all;
   font-family: "Montserrat", sans-serif;
   h1.logo-name {
-    position: absolute;
+    position: fixed;
     top: 0.25em;
     left: 0.25em;
     font-family: "Parisienne", cursive;
@@ -27,30 +29,22 @@
       font-size: 1.2em;
     }
   }
-  form {
-    width: 50%;
-    height: 60vh;
-    text-align: center;
-    position: relative;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    border-radius: 0.25em;
-    transition: 0.3s;
-    @include tablet {
-      width: 95%;
-      top: 45%;
+  main {
+    animation: fadeIn 0.3s forwards ease;
+
+    &.next-animate {
+      animation: fadeOut 0.35s forwards ease;
     }
-    @include mobile {
-      transform: unset;
-      top: 1em;
-      left: 0;
-      margin: auto;
+    &.prev-animate {
+      animation: fadeOutPrev 0.35s forwards ease;
     }
+
     div.form-info {
       position: absolute;
-      p.index-number {
-        font-size: 0.75em;
+      top: 3.5em;
+      z-index: 10;
+      @include mobile {
+        top: 0.5em;
       }
       i.fa-arrow-left {
         position: relative;
@@ -58,7 +52,6 @@
         padding: 0.5em;
         font-size: 1.2em;
         transition: 0.3s;
-        z-index: 10;
         &:hover {
           animation: fadeOutLeft 1s infinite ease-out;
         }
@@ -72,404 +65,415 @@
         }
       }
     }
-    div.input-container {
+
+    form {
+      width: 50%;
+      min-height: 100vh;
+      text-align: center;
       position: relative;
-      top: 50%;
-      animation: fadeIn 0.3s forwards ease;
+      padding: 2em 0 9em 0;
+      display: grid;
+      justify-items: center;
+      align-items: center;
+      margin: auto;
+      top: 0;
+      transition: 0.3s;
+      @include tablet {
+        width: 95%;
+      }
       @include mobile {
-        top: 70%;
-      }
-      &.next-animate {
-        animation: fadeOut 0.35s forwards ease;
-      }
-      &.prev-animate {
-        animation: fadeOutPrev 0.35s forwards ease;
+        padding: 0.5em 0 5em 0;
       }
 
-      h2 {
-        margin-bottom: 2.5em;
-        pointer-events: none;
-        font-size: 1.7vw;
-        @include tablet {
-          font-size: 3vw;
-          margin-bottom: 1.25em;
-        }
-        @include mobile {
-          font-size: 5vw;
-        }
-        span {
-          display: block;
-          font-size: 1.5vw;
-          @include mobile {
-            font-size: 3.5vw;
-          }
-        }
-      }
-
-      .input-field {
-        height: 5vw;
-        min-height: 2.25em;
-        width: 75%;
-        position: relative;
-        margin: auto;
-        @include mobile {
-          width: 90%;
-        }
-        input[type="text"],
-        input[type="number"] {
-          background: transparent;
-          outline: none;
-          border: none;
-          height: 100%;
-          width: 100%;
-          font-size: 1.75vw;
-          padding: 0 0 0 0.5em;
-          &::-webkit-inner-spin-button {
-            -webkit-appearance: none;
-          }
-          @include tablet {
-            font-size: 3vw;
-          }
-          @include mobile {
-            padding: 0;
-            text-align: center;
-            font-size: 5vw;
-          }
-        }
-        input[type="text"]:focus ~ .border-line,
-        input[type="number"]:focus ~ .border-line {
-          width: 100%;
-          left: 0%;
-        }
-        .border-line {
-          position: absolute;
-          transition: 0.3s;
-          bottom: 0;
-          left: 50%;
-          width: 0%;
-          height: 2px;
-        }
-      }
-
-      .radio-input-container {
-        text-align: left;
+      .input-container {
         display: flex;
         flex-direction: column;
+        justify-items: center;
         align-items: center;
-        label {
-          height: 2.5em;
-          line-height: 2.5em;
-          min-width: 8em;
-          font-size: 1.5em;
-          cursor: pointer;
-          @include tablet {
-            font-size: 2.5vw;
+        width: 100%;
+        .form-component {
+          position: relative;
+          width: 100%;
+          margin: 2.5em auto;
+          transition: 0.3s;
+          opacity: 1;
+          &.completed {
+            opacity: 0.65;
           }
-          @include mobile {
-            font-size: 4vw;
-            min-width: 6em;
-          }
-          input[type="radio"] {
-            -webkit-appearance: none;
-            outline: none;
-            position: relative;
-            left: 0;
-            top: 0.25em;
-            height: 2em;
-            width: 2em;
-            transition: all 0.15s ease-out;
-            border-radius: 50%;
-            cursor: pointer;
-            margin-right: 0.75em;
-            @include mobile {
-              height: 1.5em;
-              width: 1.5em;
+          h2 {
+            margin-bottom: 0.5em;
+            pointer-events: none;
+            font-size: 1.7vw;
+            @include tablet {
+              font-size: 3vw;
+              margin-bottom: 1.25em;
             }
-            &:checked:before {
-              height: 1.25em;
-              width: 1.25em;
-              display: inline-block;
-              text-align: center;
-              line-height: 2em;
-              transition: 0.15s;
+            @include mobile {
+              font-size: 5vw;
+            }
+            span {
+              display: block;
+              font-size: 1.5vw;
               @include mobile {
-                height: 0.8em;
-                width: 0.8em;
-                line-height: 1.5em;
+                font-size: 3.5vw;
               }
             }
-            &:checked:after,
-            &:checked:before {
-              position: absolute;
-              content: "";
-              top: 50%;
-              left: 50%;
-              transform: translate(-50%, -50%);
-              border-radius: 50%;
-            }
-            &:checked:after {
-              z-index: 100;
-              animation: radioWave 0.5s;
-            }
           }
-        }
-      }
 
-      .date-input-container {
-        input[type="date"] {
-          background: transparent;
-          padding: 0.5em;
-          border: none;
-          font-size: 1.25em;
-          outline: none;
-          position: relative;
-          &::-webkit-datetime-edit {
-            margin-right: -1em;
-            padding: 0.5em 0.5em 0.5em 0.75em;
+          .input-field {
+            height: 5vw;
+            min-height: 2.25em;
+            width: 75%;
+            position: relative;
+            margin: auto;
+            @include mobile {
+              width: 90%;
+            }
+            input[type="text"],
+            input[type="number"] {
+              background: transparent;
+              outline: none;
+              border: none;
+              height: 100%;
+              width: 100%;
+              font-size: 1.75vw;
+              padding: 0 0 0 0.5em;
+              border-radius: 5px;
+              &::-webkit-inner-spin-button {
+                -webkit-appearance: none;
+              }
+              @include tablet {
+                font-size: 3vw;
+              }
+              @include mobile {
+                padding: 0;
+                text-align: center;
+                font-size: 5vw;
+              }
+            }
+            input[type="text"]:focus ~ .border-line,
+            input[type="number"]:focus ~ .border-line {
+              width: 100%;
+              left: 0%;
+            }
+            .border-line {
+              position: absolute;
+              transition: 0.3s;
+              bottom: 0;
+              left: 50%;
+              width: 0%;
+              height: 2px;
+            }
           }
-          &::-webkit-datetime-edit-text {
-            padding: 0 0.15em;
+
+          .radio-input-container {
+            text-align: left;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            label {
+              height: 2.5em;
+              line-height: 2.5em;
+              min-width: 8em;
+              font-size: 1.5em;
+              cursor: pointer;
+              @include tablet {
+                font-size: 2.5vw;
+              }
+              @include mobile {
+                font-size: 4vw;
+                min-width: 6em;
+              }
+              input[type="radio"] {
+                -webkit-appearance: none;
+                outline: none;
+                position: relative;
+                left: 0;
+                top: 0.25em;
+                height: 2em;
+                width: 2em;
+                transition: all 0.15s ease-out;
+                border-radius: 50%;
+                cursor: pointer;
+                margin-right: 0.75em;
+                @include mobile {
+                  height: 1.5em;
+                  width: 1.5em;
+                }
+                &:checked:before {
+                  height: 1.25em;
+                  width: 1.25em;
+                  display: inline-block;
+                  text-align: center;
+                  line-height: 2em;
+                  transition: 0.15s;
+                  @include mobile {
+                    height: 0.8em;
+                    width: 0.8em;
+                    line-height: 1.5em;
+                  }
+                }
+                &:checked:after,
+                &:checked:before {
+                  position: absolute;
+                  content: "";
+                  top: 50%;
+                  left: 50%;
+                  transform: translate(-50%, -50%);
+                  border-radius: 50%;
+                }
+                &:checked:after {
+                  z-index: 100;
+                  animation: radioWave 0.5s;
+                }
+              }
+            }
           }
-          &::-webkit-inner-spin-button {
-            display: none;
+
+          .date-input-container {
+            input[type="date"] {
+              background: transparent;
+              padding: 0.5em;
+              border: none;
+              font-size: 1.25em;
+              outline: none;
+              position: relative;
+              &::-webkit-datetime-edit {
+                margin-right: -1em;
+                padding: 0.5em 0.5em 0.5em 0.75em;
+              }
+              &::-webkit-datetime-edit-text {
+                padding: 0 0.15em;
+              }
+              &::-webkit-inner-spin-button {
+                display: none;
+              }
+              @include mobile {
+                &:invalid {
+                  &::after {
+                    position: absolute;
+                    content: "dd.mm.gggg.";
+                  }
+                }
+              }
+            }
           }
-          @include mobile {
-            &:invalid {
+
+          .file-input-container {
+            position: relative;
+            width: 80%;
+            margin: auto;
+            label {
+              cursor: pointer;
+              position: absolute;
+              top: 50%;
+              transform: translateY(-50%);
+              border-radius: 5px;
+              padding: 0.5em;
+              overflow: hidden;
+              @include mobile {
+                left: 0;
+                font-size: 3.25vw;
+              }
+              i {
+                margin-right: 0.3em;
+              }
               &::after {
                 position: absolute;
-                content: "dd.mm.gggg.";
+                content: "";
+                width: 100%;
+                height: 100%;
+                top: 100%;
+                left: 0;
+                transition: 0.3s;
+                z-index: -1;
+              }
+              &:hover::after {
+                top: 0;
+              }
+            }
+            input[type="file"] {
+              outline: none;
+              &::-webkit-file-upload-button {
+                visibility: hidden;
+                padding: 1.5em 2em;
+                @include mobile {
+                  padding: 1.25em 1.25vw;
+                }
+              }
+              &::-webkit-file-upload-text {
+                margin-left: 50em;
               }
             }
           }
-        }
-      }
 
-      .file-input-container {
-        position: relative;
-        width: 80%;
-        margin: auto;
-        label {
-          cursor: pointer;
-          position: absolute;
-          top: 50%;
-          transform: translateY(-50%);
-          border-radius: 5px;
-          padding: 0.5em;
-          overflow: hidden;
-          @include mobile {
-            left: 0;
-            font-size: 3.25vw;
-          }
-          i {
-            margin-right: 0.3em;
-          }
-          &::after {
-            position: absolute;
-            content: "";
-            width: 100%;
-            height: 100%;
-            top: 100%;
-            left: 0;
-            transition: 0.3s;
-            z-index: -1;
-          }
-          &:hover::after {
-            top: 0;
-          }
-        }
-        input[type="file"] {
-          outline: none;
-          &::-webkit-file-upload-button {
-            visibility: hidden;
-            padding: 1.5em 2em;
+          .selection-input-contatiner {
+            display: flex;
+            flex-direction: column;
+            width: 60%;
+            margin: auto;
             @include mobile {
-              padding: 1.25em 1.25vw;
+              width: 100%;
+            }
+            .option {
+              position: relative;
+              cursor: pointer;
+              transition: 0.5s;
+              padding: 0.5em 0;
+              margin: 0.25em auto;
+              overflow: hidden;
+              border-radius: 8px;
+              width: 75%;
+              &:after {
+                position: absolute;
+                content: "";
+                width: 100%;
+                height: 100%;
+                top: 0;
+                left: -100%;
+                z-index: -1;
+                background: transparent;
+                transition: 0.3s all;
+              }
+              &.selected::after {
+                left: 0;
+              }
             }
           }
-          &::-webkit-file-upload-text {
-            margin-left: 50em;
-          }
-        }
-      }
 
-      .selection-input-contatiner {
-        display: flex;
-        flex-direction: column;
-        width: 60%;
-        margin: auto;
-        @include mobile {
-          width: 100%;
-        }
-        .option {
-          position: relative;
-          cursor: pointer;
-          transition: 0.5s;
-          padding: 0.5em 0;
-          margin: 0.25em auto;
-          overflow: hidden;
-          border-radius: 8px;
-          width: 75%;
-          &:after {
-            position: absolute;
-            content: "";
-            width: 100%;
-            height: 100%;
-            top: 0;
-            left: -100%;
-            z-index: -1;
-            background: transparent;
-            transition: 0.3s all;
-          }
-          &.selected::after {
-            left: 0;
-          }
-        }
-      }
-
-      .range-input-container {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        justify-content: center;
-
-        .range-slider {
-          position: relative;
-          width: 75%;
-          .indicator {
-            position: relative;
-            margin-top: 1.5em;
+          .range-input-container {
             display: flex;
             flex-direction: column;
             align-items: center;
             justify-content: center;
-            transform: translateX(calc(-50% + 11px));
-            width: 5em;
-            height: 5em;
-            border-radius: 50%;
-            span {
-              font-size: 0.75em;
+
+            .range-slider {
+              position: relative;
+              width: 75%;
+              .indicator {
+                position: relative;
+                margin-top: 1.5em;
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                justify-content: center;
+                transform: translateX(calc(-50% + 11px));
+                width: 5em;
+                height: 5em;
+                border-radius: 50%;
+                span {
+                  font-size: 0.75em;
+                }
+              }
+              input {
+                -webkit-appearance: none;
+                margin-top: 29px;
+                width: 100%;
+                &:focus {
+                  outline: none;
+                }
+                &::-webkit-slider-runnable-track {
+                  -webkit-appearance: none;
+                  width: 100%;
+                  height: 1px;
+                  cursor: pointer;
+                  box-shadow: none;
+                  border-radius: 0px;
+                }
+                &::-webkit-slider-thumb {
+                  -webkit-appearance: none;
+                  box-shadow: none;
+                  box-shadow: 0px 10px 10px rgba(0, 0, 0, 0.25);
+                  height: 42px;
+                  width: 22px;
+                  border-radius: 22px;
+                  cursor: pointer;
+                  margin-top: -20px;
+                }
+              }
+            }
+
+            .range {
+              width: 76%;
+              opacity: 0;
+              display: flex;
+              justify-content: space-between;
+              animation: fadeInBottom 0.5s forwards ease-in-out 0.35s;
+              span:first-child {
+                margin-left: 8px;
+              }
+              span:nth-child(2) {
+                margin-right: 6px;
+              }
             }
           }
-          input {
-            -webkit-appearance: none;
-            margin-top: 29px;
+
+          .custom-input-container {
+            i {
+              font-size: 2em;
+              margin: 0 0.25em;
+              transition: 0.4s;
+              cursor: pointer;
+            }
+            &.active {
+              i {
+                font-weight: 900;
+              }
+              i.selected ~ i {
+                font-weight: 400;
+              }
+            }
+          }
+
+          .multiple-input-container {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            align-items: center;
+            justify-content: center;
+            @include mobile {
+              justify-content: start;
+              overflow-x: scroll;
+            }
+          }
+
+          p.error-msg {
+            position: absolute;
+            bottom: -1.5em;
+            left: 50%;
+            margin: auto;
             width: 100%;
-            &:focus {
-              outline: none;
-            }
-            &::-webkit-slider-runnable-track {
-              -webkit-appearance: none;
-              width: 100%;
-              height: 1px;
-              cursor: pointer;
-              box-shadow: none;
-              border-radius: 0px;
-            }
-            &::-webkit-slider-thumb {
-              -webkit-appearance: none;
-              box-shadow: none;
-              box-shadow: 0px 10px 10px rgba(0, 0, 0, 0.25);
-              height: 42px;
-              width: 22px;
-              border-radius: 22px;
-              cursor: pointer;
-              margin-top: -20px;
-            }
-          }
-        }
-
-        .range {
-          width: 76%;
-          opacity: 0;
-          display: flex;
-          justify-content: space-between;
-          animation: fadeInBottom 0.5s forwards ease-in-out 0.35s;
-          span:first-child {
-            margin-left: 8px;
-          }
-          span:nth-child(2) {
-            margin-right: 6px;
+            animation: errorFade 0.3s both ease-in-out;
           }
         }
       }
-
-      .custom-input-container {
-        i {
-          font-size: 2em;
-          margin: 0 0.25em;
-          transition: 0.4s;
-          cursor: pointer;
-        }
-        &.active {
-          i {
-            font-weight: 900;
-          }
-          i.selected ~ i {
-            font-weight: 400;
-          }
-        }
+    }
+    .form-summary {
+      width: 50%;
+      text-align: center;
+      margin: auto;
+      padding-top: 40vh;
+      @include tablet {
+        width: 95%;
       }
-
-      .multiple-input-container {
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        @include mobile {
-          justify-content: start;
-          overflow-x: scroll;
-        }
-        .multiple-input-item {
-          min-width: 200px;
-          margin: auto;
-          .input-field ~ h2 {
-            display: none;
-          }
-          .radio-input-container {
-            margin-top: 1.5em;
-          }
-        }
-      }
-
-      p.error-msg {
-        position: absolute;
-        bottom: 4em;
-        left: 50%;
-        margin: auto;
-        width: 100%;
-        animation: errorFade 0.3s both ease-in-out;
-        @include tablet {
-          bottom: 3em;
-        }
+      h2 {
+        opacity: 0;
+        animation: fadeInBottom 0.75s ease-in forwards 0.4s;
       }
     }
-  }
-  .form-summary {
-    width: 50%;
-    text-align: center;
-    position: relative;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    @include tablet {
-      width: 95%;
-    }
-    h2 {
-      animation: fadeInBottom 0.75s ease-in forwards;
-    }
-  }
-  button {
-    outline: none;
-    margin-top: 5em;
-    padding: 0.5em 1.5em;
-    border-radius: 5px;
-    cursor: pointer;
-    transition: 0.3s;
-    animation: fadeInBottom 0.3s forwards ease-in-out;
-    @include tablet {
-      margin-top: 3.5em;
-    }
-    &.hidden {
-      animation: fadeOutBottom 0.15s forwards ease-in-out;
+    button {
+      outline: none;
+      margin-top: 5em;
+      padding: 0.5em 1.5em;
+      border-radius: 5px;
+      cursor: pointer;
+      transition: 0.3s;
+      animation: fadeInBottom 0.3s forwards ease-in-out;
+      @include tablet {
+        margin-top: 3.5em;
+      }
+      &.hidden {
+        animation: fadeOutBottom 0.15s forwards ease-in-out;
+      }
     }
   }
 }

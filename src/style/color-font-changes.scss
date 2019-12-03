@@ -1,13 +1,17 @@
 @for $i from 1 to 6 {
   &.color#{$i} {
     background: color(color#{$i}Secondary);
+    i {
+      color: color(color#{$i}Primary);
+    }
     form {
       color: color(color#{$i}Primary);
-
-      div.input-container {
+      .form-component {
         input[type="text"],
         input[type="number"] {
-          border-bottom: 1px color(color#{$i}Primary) solid !important;
+          border-bottom: 1px
+            rgba(color(color#{$i}Primary), 0.5)
+            solid !important;
           color: color(color#{$i}Primary);
           &::placeholder {
             color: color(color#{$i}Primary);
@@ -65,7 +69,7 @@
             border: 2px color(color#{$i}Primary) solid;
             color: color(color#{$i}Secondary);
             &::after {
-              background: color(color#{$i}Primary);
+              background: color(color#{$i}Primary) !important;
             }
           }
         }
@@ -171,13 +175,10 @@
   }
 
   @for $i from 2 to 4 {
-    .page-container {
-      overflow-y: scroll;
-    }
     &.font#{$i} {
       form,
       .form-summary {
-        width: 95%;
+        width: 95% !important;
         p:not(.indicator),
         input[type="date"] {
           font-size: #{$i * 0.75}vw !important;
@@ -186,15 +187,6 @@
           }
           @include mobile {
             font-size: #{$i * 0.6}em !important;
-          }
-          &.error-msg {
-            bottom: 3em !important;
-            @include tablet {
-              bottom: 1em !important;
-            }
-            @include mobile {
-              bottom: 1.5em !important;
-            }
           }
           &.option {
             font-size: #{$i * 0.6}vw !important;

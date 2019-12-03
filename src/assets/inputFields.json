@@ -77,24 +77,6 @@
     "multiple": false
   },
   {
-    "name": "productQuestion1",
-    "placeholder": "How did you hear about the product?",
-    "type": "Text",
-    "pattern": "^[^±!@£$%^&*_+§¡€#¢§¶•ªº«\\/<>?:;|=]{1,100}$"
-  },
-  {
-    "name": "productQuestion2",
-    "placeholder": "When did you hear about the product?",
-    "type": "Text",
-    "pattern": "^[^±!@£$%^&*_+§¡€#¢§¶•ªº«\\/<>?:;|=]{1,100}$"
-  },
-  {
-    "name": "productQuestion3",
-    "placeholder": "How often are you using the product ?",
-    "type": "Text",
-    "pattern": "^[^±!@£$%^&*_+§¡€#¢§¶•ªº«\\/<>?:;|=]{1,100}$"
-  },
-  {
     "name": "kidsQuestion1",
     "placeholder": "Do you have kids ?",
     "type": "Radio",
@@ -113,16 +95,28 @@
     "type": "Multiple",
     "additional_fields": [
       {
-        "name": "kidAge",
-        "placeholder": "Age",
+        "name": "kidAgeMin",
+        "placeholder": "Youngest child",
         "type": "Number",
         "range": ["0", "99", "2"]
       },
       {
-        "name": "kidGender",
-        "placeholder": "Gender",
-        "type": "Radio",
-        "options": ["Male", "Female", "Others"]
+        "name": "kidAgeMax",
+        "placeholder": "Oldest child",
+        "type": "Number",
+        "range": ["0", "99", "2"]
+      },
+      {
+        "name": "maleKids",
+        "placeholder": "Male Kids",
+        "type": "Number",
+        "range": ["0", "70", "2"]
+      },
+      {
+        "name": "femaleKids",
+        "placeholder": "Female Kids",
+        "type": "Number",
+        "range": ["0", "70", "2"]
       }
     ]
   },
@@ -204,7 +198,24 @@
     "name": "photos",
     "placeholder": "Pictures of kids or parents brushing teeth.",
     "type": "File",
-    "multiple": true,
-    "redirectFrom": { "if": "No", "index": 16 }
+    "multiple": true
+  },
+  {
+    "name": "productQuestion1",
+    "placeholder": "How did you hear about the product?",
+    "type": "Text",
+    "pattern": "^[^±!@£$%^&*_+§¡€#¢§¶•ªº«\\/<>?:;|=]{1,100}$"
+  },
+  {
+    "name": "productQuestion2",
+    "placeholder": "When did you hear about the product?",
+    "type": "Text",
+    "pattern": "^[^±!@£$%^&*_+§¡€#¢§¶•ªº«\\/<>?:;|=]{1,100}$"
+  },
+  {
+    "name": "productQuestion3",
+    "placeholder": "How often are you using the product ?",
+    "type": "Text",
+    "pattern": "^[^±!@£$%^&*_+§¡€#¢§¶•ªº«\\/<>?:;|=]{1,100}$"
   }
 ]

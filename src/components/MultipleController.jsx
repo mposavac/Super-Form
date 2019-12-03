@@ -1,88 +1,83 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 
-import inputs from "../assets/inputFields.json";
-
-import MultipleInputField from "./MultipleInputField.jsx";
+import NumberInputField from "./NumberInputField.jsx";
 
 export class MultipleController extends Component {
   state = {
-    numOfChilds: 0,
-    allFilled: false
+    kidAgeMin: "",
+    kidAgeMax: "",
+    maleKids: "",
+    femaleKids: ""
   };
 
   componentDidMount() {
-    let { itemDetails, formData, index } = this.props;
-    let numOfChilds = formData[inputs[index - 1].name];
+    let { formData } = this.props;
+    if (formData[2] && formData[2][this.props.itemDetails.name])
+      this.setState(formData[2][this.props.itemDetails.name]);
+  }
+
+  errorMsg = () => {
+    const { maleKids, femaleKids } = this.state;
     if (
-      formData[itemDetails.name] &&
-      formData[itemDetails.name].numOfChilds === numOfChilds
-    ) {
-      this.setState(formData[itemDetails.name]);
-    } else {
-      this.setState({ numOfChilds: numOfChilds });
+      this.props.prevInput &&
+      maleKids !== "" &&
+      femaleKids !== "" &&
+      parseInt(maleKids) + parseInt(femaleKids) !==
+        parseInt(this.props.prevInput)
+    )
+      return `Female and male sum must be ${this.props.prevInput}`;
+    return undefined;
+  };
+
+  handleInput = e => {
+    this.setState({ [e.target.getAttribute("name")]: e.target.value });
+  };
+
+  componentDidUpdate(prevProps, prevState) {
+    if (prevState !== this.state) {
+      let { kidAgeMin, kidAgeMax, maleKids, femaleKids } = this.state;
+      if (
+        kidAgeMin !== "" &&
+        kidAgeMax !== "" &&
+        maleKids !== "" &&
+        femaleKids !== ""
+      )
+        this.props.handleInput({
+          name: this.props.itemDetails.name,
+          state: this.state
+        });
+      else
+        this.props.handleInput({
+          name: this.props.itemDetails.name,
+          state: ""
+        });
     }
   }
 
-  handleInput = (payload, groupId) => {
-    let stateName = "input" + groupId;
-    this.setState({ [stateName]: payload });
-    if (payload) this.props.handleInput(this.state);
-    else this.props.handleInput("");
-  };
-  componentDidUpdate() {
-    let inputLength = 0;
-    for (let i = 0; i < this.state.numOfChilds; i++) {
-      if (this.state[`input${i}`]) inputLength++;
-    }
-    if (
-      this.state.allFilled === false &&
-      String(inputLength) === this.state.numOfChilds
-    )
-      this.setState({ allFilled: true });
-    else if (
-      this.state.allFilled === true &&
-      String(inputLength) !== this.state.numOfChilds
-    )
-      this.setState({ allFilled: false });
-  }
-  returnComponents = () => {
-    let output = [];
-    for (let i = 0; i < this.state.numOfChilds; i++) {
-      output.push(
-        <MultipleInputField
-          key={i}
-          itemDetails={this.props.itemDetails}
-          handleInput={this.handleInput}
-          input={this.state[`input${i}`]}
-          groupId={i}
-        />
-      );
-    }
-    return <div className="multiple-input-container">{output}</div>;
-  };
   render() {
     return (
       <div>
-        <h2>
-          {this.props.itemDetails.placeholder}
-          {this.state.numOfChilds > 1 && window.innerWidth < 650 && (
-            <span>(Scroll right)</span>
-          )}
-        </h2>
-        {this.state.numOfChilds && this.returnComponents()}
-        <button className={!this.state.allFilled ? "hidden" : ""} type="submit">
-          OK <i className="fas fa-chevron-right" />
-        </button>
+        <h2>{this.props.itemDetails.placeholder}</h2>
+        <div className="multiple-input-container">
+          {this.props.itemDetails.additional_fields.map((element, i) => (
+            <NumberInputField
+              key={i}
+              handleInput={this.handleInput}
+              handleNext={this.handleNext}
+              itemDetails={element}
+              input={this.state[element.name]}
+            />
+          ))}
+        </div>
+        {this.errorMsg() && <p className="error-msg">{this.errorMsg()}</p>}
       </div>
     );
   }
 }
 const mapStateToProps = state => {
   return {
-    formData: state.formData,
-    index: state.index
+    formData: state.formData
   };
 };
-
 export default connect(mapStateToProps)(MultipleController);
