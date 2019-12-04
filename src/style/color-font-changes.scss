@@ -251,6 +251,10 @@
             font-size: #{$i * 0.6}em !important;
           }
         }
+        .input-field input:focus ~ label,
+        .input-field input:valid ~ label {
+          top: -5px !important;
+        }
         h2 {
           padding-top: 3em;
           margin-bottom: 1em !important;
