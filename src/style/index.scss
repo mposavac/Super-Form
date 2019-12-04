@@ -82,7 +82,7 @@ html {
         width: 95%;
       }
       @include mobile {
-        padding: 0.5em 0 5em 0;
+        padding: 0.5em 0 6.5em 0;
       }
 
       .input-container {
@@ -120,6 +120,14 @@ html {
             }
           }
 
+          p.error-msg {
+            position: absolute;
+            bottom: -1.5em;
+            left: 50%;
+            margin: auto;
+            width: 100%;
+            animation: errorFade 0.3s both ease-in-out;
+          }
           .input-field {
             height: 5vw;
             min-height: 2.25em;
@@ -156,6 +164,36 @@ html {
               width: 100%;
               left: 0%;
             }
+
+            label {
+              color: color(gray);
+              position: absolute;
+              top: 50%;
+              transform: translateY(-50%);
+              left: 1rem;
+              font-size: 1.75vw;
+              transition: 0.3s;
+              pointer-events: none;
+              @include tablet {
+                font-size: 3vw;
+              }
+              @include mobile {
+                font-size: 5vw;
+              }
+            }
+            input:focus ~ label,
+            input:valid ~ label {
+              top: 16px;
+              left: 0.9rem;
+              font-size: 0.7vw;
+              @include tablet {
+                top: -0.5vw;
+                font-size: 1.75vw;
+              }
+              @include mobile {
+                font-size: 2.75vw;
+              }
+            }
             .border-line {
               position: absolute;
               transition: 0.3s;
@@ -168,9 +206,8 @@ html {
 
           .radio-input-container {
             text-align: left;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
+            max-width: 50%;
+            margin: 0 auto 0 41%;
             label {
               height: 2.5em;
               line-height: 2.5em;
@@ -261,7 +298,7 @@ html {
 
           .file-input-container {
             position: relative;
-            width: 80%;
+            width: 100%;
             margin: auto;
             label {
               cursor: pointer;
@@ -272,7 +309,6 @@ html {
               padding: 0.5em;
               overflow: hidden;
               @include mobile {
-                left: 0;
                 font-size: 3.25vw;
               }
               i {
@@ -296,13 +332,12 @@ html {
               outline: none;
               &::-webkit-file-upload-button {
                 visibility: hidden;
-                padding: 1.5em 2em;
+                padding: 1.5em 0;
+                min-width: 145px;
                 @include mobile {
+                  min-width: 160px;
                   padding: 1.25em 1.25vw;
                 }
-              }
-              &::-webkit-file-upload-text {
-                margin-left: 50em;
               }
             }
           }
@@ -428,21 +463,28 @@ html {
           .multiple-input-container {
             display: grid;
             grid-template-columns: repeat(2, 1fr);
+            grid-template-areas:
+              "maleKids kidAgeMin"
+              "femaleKids kidAgeMax";
             align-items: center;
             justify-content: center;
-            @include mobile {
-              justify-content: start;
-              overflow-x: scroll;
+            .input-field:nth-child(1) {
+              grid-area: kidAgeMin;
             }
-          }
-
-          p.error-msg {
-            position: absolute;
-            bottom: -1.5em;
-            left: 50%;
-            margin: auto;
-            width: 100%;
-            animation: errorFade 0.3s both ease-in-out;
+            .input-field:nth-child(2) {
+              grid-area: kidAgeMax;
+            }
+            .input-field:nth-child(3) {
+              grid-area: maleKids;
+            }
+            .input-field:nth-child(4) {
+              grid-area: femaleKids;
+            }
+            .input-field {
+              p.error-msg {
+                bottom: 0em !important;
+              }
+            }
           }
         }
       }
@@ -459,20 +501,41 @@ html {
         opacity: 0;
         animation: fadeInBottom 0.75s ease-in forwards 0.4s;
       }
+      i {
+        margin-left: 0.3em;
+      }
     }
     button {
       outline: none;
-      margin-top: 5em;
+      margin-top: 4em;
       padding: 0.5em 1.5em;
       border-radius: 5px;
       cursor: pointer;
       transition: 0.3s;
-      animation: fadeInBottom 0.3s forwards ease-in-out;
+      position: relative;
+      overflow: hidden;
+      i {
+        transition: 0.3s;
+      }
+      &:after {
+        position: absolute;
+        content: "";
+        top: 0;
+        left: -100%;
+        width: 100%;
+        height: 100%;
+        clip-path: polygon(75% 0%, 100% 50%, 75% 100%, 0% 100%, 25% 50%, 0% 0%);
+        z-index: -1;
+      }
+      &:disabled {
+        opacity: 0.3;
+        cursor: not-allowed;
+      }
+      &:not(:disabled)::after {
+        animation: next-btn-animation 1s forwards ease-in-out;
+      }
       @include tablet {
         margin-top: 3.5em;
-      }
-      &.hidden {
-        animation: fadeOutBottom 0.15s forwards ease-in-out;
       }
     }
   }

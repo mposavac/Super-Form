@@ -20,10 +20,10 @@ export default function NumberInputField({ input, itemDetails, handleInput }) {
         max={itemDetails.range[1]}
         maxLength={itemDetails.range[2]}
         name={itemDetails.name}
-        placeholder={itemDetails.placeholder}
         onChange={handleInput}
         value={!input ? "" : input}
       />
+      <label htmlFor={itemDetails.name}>{itemDetails.placeholder}</label>
       <div className="border-line" />
       {errorMsg() && <p className="error-msg">{errorMsg()}</p>}
     </div>

@@ -3,9 +3,9 @@ import React from "react";
 export default function FormSummary(props) {
   return !props.submited ? (
     <div className="form-summary">
-      <h2>You Completed Super Form click finish to submit it!</h2>
+      <h2>You Completed Super Form click submit to submit it!</h2>
       <button onClick={props.handleSubmit}>
-        Finish
+        SUBMIT
         <i className="fas fa-chevron-right" />
       </button>
     </div>

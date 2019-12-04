@@ -18,6 +18,7 @@
     opacity: 0;
   }
 }
+
 @keyframes fadeOutPrev {
   from {
     transform: translate(0%, 0%);
@@ -37,17 +38,6 @@
   to {
     transform: translateY(0%);
     opacity: 1;
-  }
-}
-
-@keyframes fadeOutBottom {
-  from {
-    transform: translateY(0%);
-    opacity: 1;
-  }
-  to {
-    transform: translateY(100%);
-    opacity: 0;
   }
 }
 
@@ -99,6 +89,7 @@
     opacity: 1;
   }
 }
+
 @keyframes translateLeft {
   0% {
     left: 0%;
@@ -107,6 +98,7 @@
     left: 100%;
   }
 }
+
 @keyframes translateLeftMobile {
   0% {
     left: 0%;
@@ -115,6 +107,7 @@
     left: 160%;
   }
 }
+
 @keyframes translateRight {
   0% {
     left: 0%;
@@ -123,6 +116,7 @@
     left: -100%;
   }
 }
+
 @keyframes translateRightMobile {
   0% {
     left: 0%;
@@ -153,5 +147,20 @@
   }
   100% {
     transform: skew(0deg 0deg);
+  }
+}
+
+@keyframes next-btn-animation {
+  0% {
+    left: -100%;
+  }
+  40% {
+    left: 0;
+  }
+  60% {
+    left: 0;
+  }
+  100% {
+    left: 200%;
   }
 }

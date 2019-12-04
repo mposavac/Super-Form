@@ -112,8 +112,8 @@ export class Screen extends Component {
             })}
         </div>
 
-        <button className={!this.allFilled() ? "hidden" : ""} type="submit">
-          OK <i className="fas fa-chevron-right" />
+        <button disabled={!this.allFilled()} type="submit">
+          Next <i className="fas fa-chevron-right" />
         </button>
       </form>
     );

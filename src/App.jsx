@@ -15,14 +15,9 @@ export class App extends Component {
   state = {
     animate: false,
     finished: false,
-    submited: false,
     color: "color1",
     font: "font1"
   };
-
-  componentDidMount() {
-    this.props.checkLocal();
-  }
 
   getObjectSize = () => {
     let size = 0;
@@ -83,13 +78,8 @@ export class App extends Component {
     });
   };
 
-  handleSubmit = () => {
-    this.props.submitForm();
-    this.setState({ submited: true });
-  };
-
   handleRetake = () => {
-    this.setState({ finished: false, submited: false, animate: "next" });
+    this.setState({ finished: false, animate: "next" });
     setTimeout(() => {
       this.setState({ animate: false });
       this.props.changeIndex(0);
@@ -131,7 +121,7 @@ export class App extends Component {
           )}
           {this.props.screenIndex === 2 && (
             <Screen
-              inputFields={inputs.slice(14, 28)}
+              inputFields={inputs.slice(14, 27)}
               handleNext={this.handleNext}
               font={this.state.font}
               screenIndex={2}
@@ -139,7 +129,7 @@ export class App extends Component {
           )}
           {this.props.screenIndex === 3 && (
             <Screen
-              inputFields={inputs.slice(28, 31)}
+              inputFields={inputs.slice(27, 30)}
               handleNext={this.handleNext}
               font={this.state.font}
               screenIndex={3}
@@ -147,9 +137,9 @@ export class App extends Component {
           )}
           {this.props.screenIndex === 4 && (
             <FormSummary
-              handleSubmit={this.handleSubmit}
+              handleSubmit={this.props.submitForm}
               handleRetake={this.handleRetake}
-              submited={this.state.submited}
+              submited={this.props.submited}
             />
           )}
         </main>
@@ -169,13 +159,13 @@ export class App extends Component {
 const mapStateToProps = state => {
   return {
     formData: state.formData,
-    screenIndex: state.index
+    screenIndex: state.index,
+    submited: state.submited
   };
 };
 
 const mapStateToDispatch = dispatch => {
   return {
-    checkLocal: () => dispatch({ type: "CHECK_LOCAL" }),
     changeIndex: newIndex => dispatch({ type: "CHANGE_INDEX", data: newIndex }),
     submitForm: () => dispatch({ type: "SUBMIT_FORM" })
   };

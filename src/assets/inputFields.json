@@ -145,12 +145,6 @@
     "icon": "grimace"
   },
   {
-    "name": "teethBrushQuestion5",
-    "placeholder": "How often they brush their teeth ?",
-    "type": "Text",
-    "pattern": "^[^±!@£$%^&*_+§¡€#¢§¶•ªº«\\/<>?:;|=]{1,100}$"
-  },
-  {
     "name": "gamesQuestion1",
     "placeholder": "Do they play video games on tablet or mobile phone ?",
     "type": "Radio",

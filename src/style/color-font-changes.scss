@@ -134,10 +134,35 @@
       color: color(color#{$i}Primary);
       background: transparent;
       border: 1px color(color#{$i}Primary) solid;
-      &:hover {
+
+      &:not(:disabled) {
+        &:hover {
+          background: color(color#{$i}Primary);
+          border: 1px color(color#{$i}Secondary) solid;
+          color: color(color#{$i}Secondary);
+          i {
+            color: color(color#{$i}Secondary) !important;
+          }
+        }
+        animation: next-btn-text-color 0.5s ease-in-out 0.2s;
+
+        @keyframes next-btn-text-color {
+          0% {
+            color: color(color#{$i}Primary);
+          }
+          1% {
+            color: color(color#{$i}Secondary);
+          }
+          99% {
+            color: color(color#{$i}Secondary);
+          }
+          100% {
+            color: color(color#{$i}Primary);
+          }
+        }
+      }
+      &::after {
         background: color(color#{$i}Primary);
-        border: 1px color(color#{$i}Secondary) solid;
-        color: color(color#{$i}Secondary);
       }
     }
 
@@ -216,7 +241,8 @@
         }
         h2,
         input[type="text"],
-        input[type="number"] {
+        input[type="number"],
+        .input-field label {
           font-size: #{$i * 0.9}vw !important;
           @include tablet {
             font-size: #{$i * 1.6}vw !important;

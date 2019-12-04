@@ -16,11 +16,11 @@ export default function TextInputField({ itemDetails, input, handleInput }) {
         pattern={itemDetails.pattern}
         required
         name={itemDetails.name}
-        placeholder={itemDetails.placeholder}
         onChange={handleInput}
         value={!input ? "" : input}
         autoComplete="off"
       />
+      <label htmlFor={itemDetails.name}>{itemDetails.placeholder}</label>
       <div className="border-line" />
       {errorMsg() && <p className="error-msg">{errorMsg()}</p>}
     </div>
