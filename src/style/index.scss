@@ -333,8 +333,10 @@ html {
             input[type="file"] {
               outline: none;
               &::-webkit-file-upload-button {
-                visibility: hidden;
-                padding: 1.5em 0;
+                -moz-opacity: 0;
+                -khtml-opacity: 0;
+                opacity: 0;
+                padding: 1.5em 6em 1.5em 0;
                 min-width: 145px;
                 @include mobile {
                   min-width: 160px;
