@@ -1,5 +1,5 @@
-import React, { Component } from "react";
-import { connect } from "react-redux";
+import React, { useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 
 import "./style/index.scss";
 
@@ -11,163 +11,142 @@ import ProgressBar from "./components/ProgressBar.jsx";
 import SvgWave from "./components/SvgWave.jsx";
 import FormSummary from "./components/FormSummary.jsx";
 
-export class App extends Component {
-  state = {
-    animate: false,
-    finished: false,
-    color: "color1",
-    font: "font1"
-  };
+function App() {
+  const [animate, setAnimate] = useState(false);
+  const [finished, setFinished] = useState(false);
+  const [color, setColor] = useState("color1");
+  const [font, setFont] = useState("font1");
 
-  getObjectSize = () => {
+  const formData = useSelector(state => state.formData);
+  const screenIndex = useSelector(state => state.index);
+  const submited = useSelector(state => state.submited);
+
+  const dispatch = useDispatch();
+  const changeIndex = newIndex =>
+    dispatch({ type: "CHANGE_INDEX", data: newIndex });
+  const submitForm = () => dispatch({ type: "SUBMIT_FORM" });
+
+  const getObjectSize = () => {
     let size = 0;
-    for (const key in this.props.formData) {
-      size += Object.getOwnPropertyNames(this.props.formData[key]).length;
+    for (const key in formData) {
+      size += Object.getOwnPropertyNames(formData[key]).length;
     }
     return size;
   };
 
-  handleNext = payload => {
-    this.setState({ animate: " next" });
+  const nextScreen = payload => {
+    setAnimate(" next");
     setTimeout(() => {
-      let { screenIndex } = this.props;
       if (
         screenIndex === 1 &&
         payload["kidsQuestion1"] &&
         payload["kidsQuestion1"] === "No"
       ) {
-        this.setState({ animate: false });
-        this.props.changeIndex(3);
+        setAnimate(false);
+        changeIndex(3);
       } else if (screenIndex === 3) {
-        this.setState({
-          animate: false,
-          finished: true
-        });
-        this.props.changeIndex(screenIndex + 1);
+        setAnimate(false);
+        setFinished(true);
+        changeIndex(screenIndex + 1);
       } else {
-        this.setState({
-          animate: false
-        });
-        this.props.changeIndex(screenIndex + 1);
+        setAnimate(false);
+        changeIndex(screenIndex + 1);
       }
     }, 400);
   };
 
-  handlePrev = () => {
-    this.setState({ animate: " prev" });
+  const prevScreen = () => {
+    setAnimate(" prev");
     setTimeout(() => {
       if (
-        this.props.screenIndex === 3 &&
-        this.props.formData[1]["kidsQuestion1"] &&
-        this.props.formData[1]["kidsQuestion1"] === "No"
+        screenIndex === 3 &&
+        formData[1]["kidsQuestion1"] &&
+        formData[1]["kidsQuestion1"] === "No"
       ) {
-        this.setState({ animate: false });
-        this.props.changeIndex(1);
+        setAnimate(false);
+        changeIndex(1);
       } else {
-        this.setState({
-          animate: false
-        });
-        this.props.changeIndex(this.props.screenIndex - 1);
+        setAnimate(false);
+        changeIndex(screenIndex - 1);
       }
     }, 400);
   };
 
-  handleStyleChange = e => {
-    this.setState({
-      [e.target.getAttribute("class")]: e.target.getAttribute("name")
-    });
+  const handleStyleChange = e => {
+    if (e.target.getAttribute("class") === "font")
+      setFont(e.target.getAttribute("name"));
+    else setColor(e.target.getAttribute("name"));
   };
 
-  handleRetake = () => {
-    this.setState({ finished: false, animate: "next" });
+  const handleRetake = () => {
+    setAnimate(" next");
+    setFinished(false);
     setTimeout(() => {
-      this.setState({ animate: false });
-      this.props.changeIndex(0);
+      setAnimate(false);
+      changeIndex(0);
     }, 400);
   };
-  render() {
-    return (
-      <div className={`page-container ${this.state.color} ${this.state.font}`}>
-        <NavBar handleStyleChange={this.handleStyleChange} />
-        <main
-          className={this.state.animate ? this.state.animate + "-animate" : ""}
-        >
-          <div className="form-info">
-            <i
-              className="fas fa-arrow-left"
-              onClick={this.handlePrev}
-              style={
-                !this.props.screenIndex && this.props.screenIndex < 3
-                  ? { opacity: 0, visibility: "hidden" }
-                  : { opacity: 1, visibility: "visible" }
-              }
-            />
-          </div>
-          {this.props.screenIndex === 0 && (
-            <Screen
-              inputFields={inputs.slice(0, 13)}
-              handleNext={this.handleNext}
-              font={this.state.font}
-              screenIndex={0}
-            />
-          )}
-          {this.props.screenIndex === 1 && (
-            <Screen
-              inputFields={[inputs[13]]}
-              handleNext={this.handleNext}
-              font={this.state.font}
-              screenIndex={1}
-            />
-          )}
-          {this.props.screenIndex === 2 && (
-            <Screen
-              inputFields={inputs.slice(14, 27)}
-              handleNext={this.handleNext}
-              font={this.state.font}
-              screenIndex={2}
-            />
-          )}
-          {this.props.screenIndex === 3 && (
-            <Screen
-              inputFields={inputs.slice(27, 30)}
-              handleNext={this.handleNext}
-              font={this.state.font}
-              screenIndex={3}
-            />
-          )}
-          {this.props.screenIndex === 4 && (
-            <FormSummary
-              handleSubmit={this.props.submitForm}
-              handleRetake={this.handleRetake}
-              submited={this.props.submited}
-            />
-          )}
-        </main>
-        <ProgressBar
-          progress={
-            !this.state.finished
-              ? (this.getObjectSize() / inputs.length) * 100
-              : 100
-          }
-        />
-        <SvgWave animate={this.state.animate} />
-      </div>
-    );
-  }
+  return (
+    <div className={`page-container ${color} ${font}`}>
+      <NavBar handleStyleChange={handleStyleChange} />
+      <main className={animate ? animate + "-animate" : ""}>
+        <div className="form-info">
+          <i
+            className="fas fa-arrow-left"
+            onClick={prevScreen}
+            style={
+              !screenIndex && screenIndex < 3
+                ? { opacity: 0, visibility: "hidden" }
+                : { opacity: 1, visibility: "visible" }
+            }
+          />
+        </div>
+        {screenIndex === 0 && (
+          <Screen
+            inputFields={inputs.slice(0, 13)}
+            nextScreen={nextScreen}
+            font={font}
+            screenIndex={0}
+          />
+        )}
+        {screenIndex === 1 && (
+          <Screen
+            inputFields={[inputs[13]]}
+            nextScreen={nextScreen}
+            font={font}
+            screenIndex={1}
+          />
+        )}
+        {screenIndex === 2 && (
+          <Screen
+            inputFields={inputs.slice(14, 27)}
+            nextScreen={nextScreen}
+            font={font}
+            screenIndex={2}
+          />
+        )}
+        {screenIndex === 3 && (
+          <Screen
+            inputFields={inputs.slice(27, 30)}
+            nextScreen={nextScreen}
+            font={font}
+            screenIndex={3}
+          />
+        )}
+        {screenIndex === 4 && (
+          <FormSummary
+            handleSubmit={submitForm}
+            handleRetake={handleRetake}
+            submited={submited}
+          />
+        )}
+      </main>
+      <ProgressBar
+        progress={!finished ? (getObjectSize() / inputs.length) * 100 : 100}
+      />
+      <SvgWave animate={animate} />
+    </div>
+  );
 }
 
-const mapStateToProps = state => {
-  return {
-    formData: state.formData,
-    screenIndex: state.index,
-    submited: state.submited
-  };
-};
-
-const mapStateToDispatch = dispatch => {
-  return {
-    changeIndex: newIndex => dispatch({ type: "CHANGE_INDEX", data: newIndex }),
-    submitForm: () => dispatch({ type: "SUBMIT_FORM" })
-  };
-};
-export default connect(mapStateToProps, mapStateToDispatch)(App);
+export default App;

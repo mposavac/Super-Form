@@ -1,83 +1,71 @@
-import React, { Component } from "react";
-import { connect } from "react-redux";
+import React, { useState, useEffect, useCallback } from "react";
+import { useSelector } from "react-redux";
 
 import NumberInputField from "./NumberInputField.jsx";
 
-export class MultipleController extends Component {
-  state = {
+function MultipleController({ prevInput, itemDetails, handleInput }) {
+  const [inputs, setInputs] = useState({
     kidAgeMin: "",
     kidAgeMax: "",
     maleKids: "",
     femaleKids: ""
-  };
+  });
 
-  componentDidMount() {
-    let { formData } = this.props;
-    if (formData[2] && formData[2][this.props.itemDetails.name])
-      this.setState(formData[2][this.props.itemDetails.name]);
-  }
+  const formData = useSelector(state => state.formData);
 
-  componentDidUpdate(prevProps, prevState) {
-    if (prevState !== this.state) {
-      let { kidAgeMin, kidAgeMax, maleKids, femaleKids } = this.state;
+  useEffect(() => {
+    if (formData[2] && formData[2][itemDetails.name])
+      setInputs(formData[2][itemDetails.name]);
+  }, [inputs, formData, itemDetails]);
+
+  const handleInputs = useCallback(
+    e => {
+      setInputs({ ...inputs, [e.target.getAttribute("name")]: e.target.value });
+      let { kidAgeMin, kidAgeMax, maleKids, femaleKids } = inputs;
       if (
         kidAgeMin !== "" &&
         kidAgeMax !== "" &&
         maleKids !== "" &&
         femaleKids !== ""
       )
-        this.props.handleInput({
-          name: this.props.itemDetails.name,
-          state: this.state
-        });
+        handleInput({ name: itemDetails.name, state: inputs });
       else
-        this.props.handleInput({
-          name: this.props.itemDetails.name,
+        handleInput({
+          name: itemDetails.name,
           state: ""
         });
-    }
-  }
+    },
+    [inputs, itemDetails, handleInput]
+  );
 
-  errorMsg = () => {
-    const { maleKids, femaleKids } = this.state;
+  const errorMsg = () => {
     if (
-      this.props.prevInput &&
-      maleKids !== "" &&
-      femaleKids !== "" &&
-      parseInt(maleKids) + parseInt(femaleKids) !==
-        parseInt(this.props.prevInput)
+      prevInput &&
+      inputs.maleKids !== "" &&
+      inputs.femaleKids !== "" &&
+      parseInt(inputs.maleKids) + parseInt(inputs.femaleKids) !==
+        parseInt(prevInput)
     )
-      return `Number of male and female children needs to be ${this.props.prevInput}!`;
+      return `Number of male and female children needs to be ${prevInput}!`;
     return undefined;
   };
-
-  handleInput = e => {
-    this.setState({ [e.target.getAttribute("name")]: e.target.value });
-  };
-
-  render() {
-    return (
-      <div>
-        <h2>{this.props.itemDetails.placeholder}</h2>
-        <div className="multiple-input-container">
-          {this.props.itemDetails.additional_fields.map((element, i) => (
-            <NumberInputField
-              key={i}
-              handleInput={this.handleInput}
-              handleNext={this.handleNext}
-              itemDetails={element}
-              input={this.state[element.name]}
-            />
-          ))}
-        </div>
-        {this.errorMsg() && <p className="error-msg">{this.errorMsg()}</p>}
+  console.log(inputs);
+  return (
+    <div>
+      <h2>{itemDetails.placeholder}</h2>
+      <div className="multiple-input-container">
+        {itemDetails.additional_fields.map((element, i) => (
+          <NumberInputField
+            key={i}
+            handleInput={handleInputs}
+            itemDetails={element}
+            input={inputs[element.name]}
+          />
+        ))}
       </div>
-    );
-  }
+      {errorMsg() && <p className="error-msg">{errorMsg()}</p>}
+    </div>
+  );
 }
-const mapStateToProps = state => {
-  return {
-    formData: state.formData
-  };
-};
-export default connect(mapStateToProps)(MultipleController);
+
+export default MultipleController;
